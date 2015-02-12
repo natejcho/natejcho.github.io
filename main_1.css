@@ -1,0 +1,47 @@
+.container .row .jumbotron .name{
+	color: #33333;
+	font-family: 'Copperplate Gothic Light';
+	line-height: 26.3999996185303px;
+}
+
+.myPanel {
+	border: 1px solid #687d6d;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	box-shadow: 0 0 4px #ccc;
+	margin: 3%;
+}
+
+.myPanel .heading {
+	background: #B6F0C4;
+	border: 1px solid #687d6d;
+	border-radius: 5px 5px 0 0;
+	-webkit-border-radius: 5px 5px 0 0;
+	-moz-border-radius: 5px 5px 0 0;
+	color: #687d6d;
+	padding: 10px 20px;
+}
+
+.myPanel .body {
+	padding: 10px 20px;
+}
+
+.myPanel .showOnHover {
+	display: none;
+
+}
+
+.myPanel:hover {
+	box-shadow: 0 0 8px #666;
+	border: 2px solid #687d6d;
+}
+
+.myPanel:hover .showOnHover{
+	display: inline-block;
+}
+
+p:hover {
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
