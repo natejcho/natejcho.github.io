@@ -1,2 +1,1135 @@
 <!DOCTYPE html>
-<html></html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Closet & The Cage — LGBT Data in Martial Arts & Combat Sports</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;600&family=Barlow:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0c0c0e;
+    --surface: #131316;
+    --surface2: #1a1a1f;
+    --border: #2a2a35;
+    --red: #e63f3f;
+    --gold: #d4a843;
+    --teal: #3fc8c0;
+    --purple: #9b6fdb;
+    --muted: #5a5a6e;
+    --text: #e8e8f0;
+    --text-secondary: #9494a8;
+    --label: #c4c4d4;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .masthead {
+    padding: 80px 60px 60px;
+    border-bottom: 1px solid var(--border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .masthead .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+  .masthead h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(38px, 5vw, 68px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+  .masthead h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .masthead .deck {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--text-secondary);
+    max-width: 620px;
+    line-height: 1.7;
+  }
+
+  /* NAV INDEX */
+  .index-strip {
+    border-bottom: 1px solid var(--border);
+    padding: 20px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 32px;
+  }
+  .index-strip a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .index-strip a:hover { color: var(--gold); }
+  .index-num { color: var(--red); margin-right: 6px; }
+
+  /* SECTION LAYOUT */
+  .section {
+    padding: 70px 60px;
+    border-bottom: 1px solid var(--border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .section-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 32px;
+    align-items: start;
+    margin-bottom: 48px;
+  }
+  .section-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 80px;
+    line-height: 0.85;
+    color: var(--border);
+    letter-spacing: -0.04em;
+    user-select: none;
+  }
+  .section-header-text {}
+  .section-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+  .section-subtitle {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-secondary);
+    max-width: 600px;
+  }
+  .source-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .source-tag a { color: var(--teal); text-decoration: none; }
+
+  /* CHART WRAPPERS */
+  .chart-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 32px;
+    position: relative;
+  }
+  .chart-wrap canvas {
+    max-height: 380px;
+  }
+
+  /* TWO COLUMN */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  /* STAT BLOCKS */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 32px;
+  }
+  .stat-block {
+    background: var(--surface);
+    padding: 28px 24px;
+  }
+  .stat-block .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 48px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+  }
+  .stat-block .stat-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .c-red { color: var(--red); }
+  .c-gold { color: var(--gold); }
+  .c-teal { color: var(--teal); }
+  .c-purple { color: var(--purple); }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 0;
+  }
+  .timeline-line {
+    position: absolute;
+    left: 90px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--red), var(--gold), var(--teal));
+  }
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 0 32px;
+    margin-bottom: 0;
+    position: relative;
+  }
+  .timeline-year {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: right;
+    color: var(--gold);
+    padding: 20px 0 0;
+    line-height: 1;
+  }
+  .timeline-content {
+    border-left: 2px solid var(--border);
+    padding: 16px 24px 16px 28px;
+    position: relative;
+  }
+  .timeline-content::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 24px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--gold);
+  }
+  .timeline-item:first-child .timeline-content::before { border-color: var(--red); }
+  .timeline-item:last-child .timeline-content::before { border-color: var(--teal); }
+  .timeline-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+  .timeline-body {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+  .timeline-badge {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin-bottom: 5px;
+  }
+  .badge-mma { background: rgba(230,63,63,0.15); color: var(--red); border: 1px solid rgba(230,63,63,0.3); }
+  .badge-boxing { background: rgba(212,168,67,0.15); color: var(--gold); border: 1px solid rgba(212,168,67,0.3); }
+  .badge-wrestling { background: rgba(63,200,192,0.15); color: var(--teal); border: 1px solid rgba(63,200,192,0.3); }
+  .badge-milestone { background: rgba(155,111,219,0.15); color: var(--purple); border: 1px solid rgba(155,111,219,0.3); }
+
+  /* GENDER CHASM VIZ */
+  .chasm-wrap {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    gap: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .chasm-side {
+    padding: 40px 32px;
+  }
+  .chasm-divider {
+    background: var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    writing-mode: vertical-rl;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .chasm-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .chasm-count {
+    font-family: 'DM Serif Display', serif;
+    font-size: 96px;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    margin-bottom: 16px;
+  }
+  .chasm-fighters {
+    list-style: none;
+    padding: 0;
+  }
+  .chasm-fighters li {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text-secondary);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .chasm-fighters li:last-child { border-bottom: none; }
+  .fighter-role {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+  }
+
+  /* INCLUSION METER */
+  .inclusion-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .inc-row {
+    display: grid;
+    grid-template-columns: 40px 130px 1fr 46px;
+    gap: 0 16px;
+    align-items: center;
+  }
+  .inc-rank {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+  }
+  .inc-country {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--label);
+  }
+  .inc-bar-bg {
+    height: 28px;
+    background: var(--surface2);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+  .inc-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1.5s cubic-bezier(.17,.67,.83,.67);
+  }
+  .inc-score {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: right;
+  }
+
+  /* PULL QUOTES */
+  .pull-quote {
+    border-left: 3px solid var(--gold);
+    padding: 16px 0 16px 24px;
+    margin: 32px 0;
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .pull-quote cite {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-style: normal;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-top: 10px;
+  }
+
+  /* PARTICIPATION PARADOX */
+  .paradox-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  .paradox-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px;
+  }
+  .paradox-card h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  /* FOOTER */
+  .footer {
+    padding: 48px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .footer p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 700px;
+  }
+
+  @media (max-width: 900px) {
+    .masthead, .section, .index-strip, .footer { padding-left: 24px; padding-right: 24px; }
+    .two-col, .paradox-grid { grid-template-columns: 1fr; }
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+    .section-header { grid-template-columns: 1fr; }
+    .section-num { font-size: 40px; margin-bottom: 8px; }
+    .chasm-wrap { grid-template-columns: 1fr; }
+    .chasm-divider { writing-mode: horizontal-tb; height: 40px; }
+    .inc-row { grid-template-columns: 24px 100px 1fr 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <p class="eyebrow">Documentary Research · Data Journalism · 8 Visualizations</p>
+  <h1>The Closet<br>& <em>the Cage</em></h1>
+  <p class="deck">What the data actually says about LGBT people in martial arts and combat sports — participation gaps, the gender chasm in professional MMA, the perception of safety, and the slow, uneven march toward visibility.</p>
+</header>
+
+<!-- INDEX -->
+<nav class="index-strip">
+  <a href="#viz1"><span class="index-num">01</span> Coming-Out Timeline</a>
+  <a href="#viz2"><span class="index-num">02</span> The Gender Chasm (UFC)</a>
+  <a href="#viz3"><span class="index-num">03</span> Perceived Safety in Sport</a>
+  <a href="#viz4"><span class="index-num">04</span> Youth Participation Gap</a>
+  <a href="#viz5"><span class="index-num">05</span> The Outness Paradox</a>
+  <a href="#viz6"><span class="index-num">06</span> Gay Games Growth</a>
+  <a href="#viz7"><span class="index-num">07</span> Physical Activity (UK)</a>
+  <a href="#viz8"><span class="index-num">08</span> Country Inclusion Rankings</a>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════
+     VIZ 1: TIMELINE
+═══════════════════════════════════════════════════ -->
+<section class="section" id="viz1">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div class="section-header-text">
+      <p class="section-tag">Historical</p>
+      <h2 class="section-title">Landmark Firsts in LGBT Combat Sports Visibility</h2>
+      <p class="section-subtitle">A timeline of documented "firsts" in boxing, MMA, and wrestling — illustrating how slowly, and recently, openly LGBT fighters have become visible in the world's most contact-intensive sports.</p>
+    </div>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-year">1975</div>
+      <div class="timeline-content">
+        <span class="timeline-badge badge-milestone">Context</span>
+        <div class="timeline-title">David Kopay — First Major Pro Team Athlete to Come Out</div>
+        <div class="timeline-body">Former NFL running back comes out publicly — the first professional team sport athlete to do so in the United States. Combat sports remain entirely silent. Sets cultural precedent for future athletes across all sports.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2008</div>
+      <div class="timeline-content">
+        <span class="timeline-badge badge-mma">MMA</span>
+        <div class="timeline-title">Shad Smith — First Openly Gay Male MMA Fighter</div>
+        <div class="timeline-body">Profiled in the <em>New York Times Magazine</em> in March 2008. A wrestler-turned-MMA fighter competing in smaller promotions (eventually Bellator), Smith is the first — and for years, one of very few — openly gay male combat sports athletes globally. MMA beat all four major US sports to this milestone.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2012</div>
+      <div class="timeline-content">
+        <span class="timeline-badge badge-boxing">Boxing</span>
+        <div class="timeline-title">Orlando Cruz — First Openly Gay Active Professional Boxer</div>
+        <div class="timeline-body">Puerto Rican featherweight Cruz comes out in October 2012 while WBO-ranked #4 in his division. "I've been fighting for more than 24 years," he told the Associated Press, "and now I'm fighting the most important battle of my life." He had been undefeated for nearly nine years. In 2013, became a first inductee into the National Gay and Lesbian Sports Hall of Fame.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2012</div>
+      <div class="timeline-content">
+        <span class="timeline-badge badge-boxing">Boxing</span>
+        <div class="timeline-title">Nicola Adams (UK) — First Openly LGBT Olympic Gold Medalist in Boxing</div>
+        <div class="timeline-body">British boxer Adams wins gold at the 2012 London Olympics in the inaugural women's boxing event — the first openly LGBT person to win Olympic gold in a combat sport. She repeats at Rio 2016, becoming the first boxer to defend an Olympic title.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2013</div>
+      <div class="timeline-content">
+        <span class="timeline-badge badge-mma">MMA</span>
+        <div class="timeline-title">Liz Carmouche — First Openly Gay UFC Fighter</div>
+        <div class="timeline-body">At UFC 157 (February 2013), Carmouche — a former US Marine — becomes the first openly gay fighter to compete in the UFC, challenging Ronda Rousey in the first-ever women's UFC bout. The match breaks two barriers simultaneously: it is both the UFC's first women's fight and its first with an openly gay athlete.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2013</div>
+      <div class="timeline-content">
+        <span class="timeline-badge badge-wrestling">Wrestling</span>
+        <div class="timeline-title">Darren Young — First Openly Gay Active WWE Wrestler</div>
+        <div class="timeline-body">In August 2013, Fred Rosser (ring name Darren Young) is asked by TMZ at an airport whether a gay wrestler could succeed in WWE. His answer: "Absolutely. Look at me. I'm a WWE superstar and I'm gay. And I'm happy." It is among the most casual, unplanned coming-out moments in sports history.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2016</div>
+      <div class="timeline-content">
+        <span class="timeline-badge badge-mma">MMA</span>
+        <div class="timeline-title">Amanda Nunes — First Openly Gay UFC Champion</div>
+        <div class="timeline-body">Brazilian fighter Amanda Nunes defeats Miesha Tate at UFC 200 to win the UFC Women's Bantamweight title, becoming the first openly gay UFC champion in history. She goes on to become the first UFC fighter — male or female — to hold titles in two weight classes simultaneously, making her widely regarded as the greatest female MMA fighter of all time.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2018</div>
+      <div class="timeline-content">
+        <span class="timeline-badge badge-mma">MMA</span>
+        <div class="timeline-title">UFC 224 — First Title Fight Between Two Openly Gay Athletes</div>
+        <div class="timeline-body">Nunes vs. Raquel Pennington at UFC 224 (May 2018) is the first championship bout in UFC history to feature two openly gay fighters. Both athletes are in same-sex relationships with fellow UFC competitors. A previously unimaginable pairing in professional combat sports.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2024</div>
+      <div class="timeline-content">
+        <span class="timeline-badge badge-mma">MMA</span>
+        <div class="timeline-title">Zero Openly Gay Male UFC Fighters — The Silence Continues</div>
+        <div class="timeline-body">As of 2024, the UFC men's roster has never included a single openly gay fighter. Across all of professional MMA worldwide, only two openly gay male fighters have ever been documented. The sport's women's divisions tell an entirely different story — see Chart 02.</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="source-tag">Sources: Wikipedia / Homosexuality in Modern Sports · QueerBio.com · <a href="https://outonthefields.com" target="_blank">OutOnTheFields.com</a> · Outsports.com · Associated Press (Cruz, 2012) · Bleacher Report (2013) · Fox Sports (2014)</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     VIZ 2: THE GENDER CHASM
+═══════════════════════════════════════════════════ -->
+<section class="section" id="viz2">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div class="section-header-text">
+      <p class="section-tag">The Core Finding</p>
+      <h2 class="section-title">The Gender Chasm in Professional MMA Visibility</h2>
+      <p class="section-subtitle">The stark, documented divergence between openly LGBT athletes in the UFC's men's and women's divisions. No openly gay male UFC fighter has ever existed. The women's divisions tell a radically different story.</p>
+    </div>
+  </div>
+
+  <div class="chasm-wrap">
+    <div class="chasm-side">
+      <p class="chasm-label c-red">Men's UFC Roster</p>
+      <div class="chasm-count c-red">0</div>
+      <p style="font-size:13px; color:var(--text-secondary); margin-bottom:24px; font-weight:300;">Openly gay male fighters<br>in UFC history, ever.</p>
+      <p style="font-size:13px; color:var(--muted); font-style:italic; line-height:1.6;">"It's almost statistically certain that there are several gay male fighters in the UFC. They're just the only ones to have gone public."<br><span style="font-size:11px; color:var(--border-color)">— Fox Sports, 2014</span></p>
+      <p style="margin-top:20px; font-size:12px; color:var(--muted);">In all of professional MMA globally, only ~2 openly gay male fighters have ever been documented: Shad Smith (Bellator, 2008) and Jordan Faulkner.</p>
+    </div>
+    <div class="chasm-divider">vs.</div>
+    <div class="chasm-side">
+      <p class="chasm-label c-teal">Women's UFC</p>
+      <div class="chasm-count c-teal">12+</div>
+      <p style="font-size:13px; color:var(--text-secondary); margin-bottom:20px; font-weight:300;">Documented openly LGBT fighters<br>in UFC women's history.</p>
+      <ul class="chasm-fighters">
+        <li>Amanda Nunes <span class="fighter-role">2× Champion · Greatest Women's MMA Fighter</span></li>
+        <li>Liz Carmouche <span class="fighter-role">First openly gay UFC fighter (2013)</span></li>
+        <li>Nina Ansaroff <span class="fighter-role">Wife of Nunes</span></li>
+        <li>Raquel Pennington <span class="fighter-role">Bantamweight title challenger</span></li>
+        <li>Tecia Torres <span class="fighter-role">Top 5 strawweight</span></li>
+        <li>Jessica Andrade <span class="fighter-role">Former strawweight champion</span></li>
+        <li>Germaine de Randamie <span class="fighter-role">Former featherweight champion</span></li>
+        <li>Tonya Evinger · Mayra Bueno Silva<span class="fighter-role"> + more</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pull-quote">
+    "The vast majority of publicly out LGBTQ MMA fighters are lesbian. In this context, it is considered challenging for a fighter to come out as LGBTQ — having a high-profile LGBTQ MMA fighter would contradict the public stereotype of intolerant and tough athletes that defines the MMA world."
+    <cite>— QueerBio.com: Professional LGBTQ Mixed Martial Artists</cite>
+  </div>
+
+  <p class="source-tag">Sources: <a href="https://queerbio.com/wiki/index.php/Professional_LGBTQ_Mixed_Martial_Artists" target="_blank">QueerBio.com</a> · <a href="https://groundedmma.com/gay-ufc-fighters/" target="_blank">GroundedMMA.com</a> · Bleacher Report (2013) · Fox Sports (2014) · MMA Junkie (2017)</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     VIZ 3: PERCEIVED SAFETY IN SPORT
+═══════════════════════════════════════════════════ -->
+<section class="section" id="viz3">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <div class="section-header-text">
+      <p class="section-tag">Out on the Fields Study, 2015</p>
+      <h2 class="section-title">How Unsafe? — Perceived Safety of LGBT People in Sport Environments</h2>
+      <p class="section-subtitle">From the landmark international study on homophobia in sport. N=9,494 respondents across USA, UK, Canada, Australia, Ireland & New Zealand. Approximately 75% of respondents identified as LGB; ~25% heterosexual.</p>
+    </div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-block">
+      <div class="stat-num c-red">80%</div>
+      <div class="stat-label">Have witnessed or experienced homophobia in sport</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num c-gold">83%</div>
+      <div class="stat-label">Believe an openly gay person would NOT be safe as a sports spectator</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num c-teal">78%</div>
+      <div class="stat-label">Believe youth sports (under 22) are NOT safe for LGB people</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num c-purple">1%</div>
+      <div class="stat-label">Believe LGB athletes are "completely accepted" in sports culture</div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <canvas id="safetyChart"></canvas>
+  </div>
+
+  <p class="source-tag">Source: Denison, E. & Kitchen, A. (2015). <em>Out on the Fields: The First International Study on Homophobia in Sport.</em> Nielsen Sport / Bingham Cup Sydney 2014 / Sport Australia. N=9,494. Expert panel: 7 academics from 4 countries. <a href="https://outonthefields.com" target="_blank">outonthefields.com</a></p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     VIZ 4: YOUTH PARTICIPATION GAP
+═══════════════════════════════════════════════════ -->
+<section class="section" id="viz4">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <div class="section-header-text">
+      <p class="section-tag">Participation Rates</p>
+      <h2 class="section-title">The Participation Gap — LGBT Youth vs. General Population</h2>
+      <p class="section-subtitle">LGBT young people engage with competitive sport at roughly half the rate of the broader youth population. This structural dropout — driven largely by hostile environments — helps explain the near-absence of out male athletes in combat sports.</p>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <canvas id="participationChart"></canvas>
+  </div>
+
+  <div style="margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+    <div style="background:var(--surface2); border:1px solid var(--border); padding:20px;">
+      <p style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--red); margin-bottom:10px;">Australia (VicHealth/Deakin, 2024)</p>
+      <p style="font-size:13px; color:var(--text-secondary); line-height:1.6; font-weight:300;">76% of gay men in Australia have witnessed homophobia in sport — showing little improvement over a decade. Despite overall declining discrimination, gay men specifically remain at elevated risk.</p>
+    </div>
+    <div style="background:var(--surface2); border:1px solid var(--border); padding:20px;">
+      <p style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-bottom:10px;">United States (Trevor Project, 2020)</p>
+      <p style="font-size:13px; color:var(--text-secondary); line-height:1.6; font-weight:300;">18% of LGBT youth athletes reported hearing negative things about LGBT people from a sports coach. Only 4% would turn to a coach if experiencing mental health distress.</p>
+    </div>
+  </div>
+
+  <p class="source-tag">Sources: The Conversation / VicHealth & Deakin University (2024), <a href="https://theconversation.com/sports-are-supposed-to-be-for-all-but-new-research-reveals-just-how-few-lgbtqi-people-play-sport-229482" target="_blank">Published Jan 2026</a> · AusPlay general population baseline · <a href="https://www.thetrevorproject.org/research-briefs/lgbtq-youth-sports-participation-2/" target="_blank">Trevor Project National Survey 2021</a>, N=34,759 LGBTQ youth ages 13–24 · HRC 2018 Youth Report</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     VIZ 5: THE OUTNESS PARADOX
+═══════════════════════════════════════════════════ -->
+<section class="section" id="viz5">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <div class="section-header-text">
+      <p class="section-tag">The Identity-Sport Tradeoff</p>
+      <h2 class="section-title">The Outness Paradox — More Visible Identity, Less Sport Participation</h2>
+      <p class="section-subtitle">Among LGBT youth, sports participation declines as outness increases. The data reveals a forced choice: be yourself, or be an athlete. This structural pressure creates the "invisible gay athlete" seen in professional combat sports.</p>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="chart-wrap">
+      <canvas id="outnessChart"></canvas>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <div style="background:var(--surface); border:1px solid var(--border); padding:24px; flex:1;">
+        <p style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.15em; color:var(--gold); text-transform:uppercase; margin-bottom:12px;">What the data shows</p>
+        <p style="font-size:14px; color:var(--text-secondary); line-height:1.7; font-weight:300;">LGBT youth who are NOT out to anyone participate in sport at a rate of <strong style="color:var(--text);">1 in 3 (33%)</strong>. Those who are out to most or all people they know drop to <strong style="color:var(--red);">1 in 5 (20%)</strong>.</p>
+        <p style="margin-top:14px; font-size:14px; color:var(--text-secondary); line-height:1.7; font-weight:300;">This 13-percentage-point gap suggests sport environments are more hostile for visible LGBT identities — not because LGBT people have less athletic drive, but because they face more overt hostility when identifiable.</p>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--border); padding:24px; flex:1;">
+        <p style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.15em; color:var(--teal); text-transform:uppercase; margin-bottom:12px;">Implications for combat sports</p>
+        <p style="font-size:14px; color:var(--text-secondary); line-height:1.7; font-weight:300;">Gay men are less likely to reach elite combat sports in the first place — filtered out at youth level. Those who do compete face an additional calculation: come out and risk sponsorship, team dynamics, and opponent targeting, or stay closeted and compete.</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="source-tag">Source: <a href="https://www.thetrevorproject.org/research-briefs/lgbtq-youth-sports-participation/" target="_blank">The Trevor Project (2020). <em>LGBTQ Youth Sports Participation.</em></a> N=17,467 LGBTQ youth enrolled in middle or high school. Data collected Dec 2019 – Mar 2020.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     VIZ 6: GAY GAMES GROWTH
+═══════════════════════════════════════════════════ -->
+<section class="section" id="viz6">
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <div class="section-header-text">
+      <p class="section-tag">The Alternative Institution</p>
+      <h2 class="section-title">Gay Games Athlete Participation, 1982–2023</h2>
+      <p class="section-subtitle">Founded in San Francisco by Olympic decathlete Tom Waddell, the Gay Games became — at its 1994 peak — larger than the Olympics by athlete count. Martial arts has been featured since Gay Games III (1990 Vancouver), where the IAGLMA was born.</p>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <canvas id="gayGamesChart"></canvas>
+  </div>
+
+  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); margin-top:24px; border:1px solid var(--border);">
+    <div style="background:var(--surface); padding:20px;">
+      <p style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:6px;">Peak Year</p>
+      <p style="font-family:'DM Serif Display',serif; font-size:32px; color:var(--text);">14,715</p>
+      <p style="font-size:12px; color:var(--muted);">Athletes at Amsterdam 1998 — compared to ~10,318 at Atlanta 1996 Olympics</p>
+    </div>
+    <div style="background:var(--surface); padding:20px;">
+      <p style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--teal); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:6px;">Martial Arts Connection</p>
+      <p style="font-family:'DM Serif Display',serif; font-size:32px; color:var(--text);">1990</p>
+      <p style="font-size:12px; color:var(--muted);">Year IAGLMA (International Assoc. of Gay & Lesbian Martial Artists) was founded at Gay Games III, Vancouver</p>
+    </div>
+    <div style="background:var(--surface); padding:20px;">
+      <p style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--red); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:6px;">Next Games</p>
+      <p style="font-family:'DM Serif Display',serif; font-size:32px; color:var(--text);">2026</p>
+      <p style="font-size:12px; color:var(--muted);">Gay Games XII to be held in Valencia, Spain. Martial arts expected to be featured.</p>
+    </div>
+  </div>
+
+  <p class="source-tag">Sources: <a href="https://en.wikipedia.org/wiki/Gay_Games" target="_blank">Wikipedia / Gay Games</a> · Federation of Gay Games Archive (SFPL, GLC 27) · <a href="https://marketingtherainbow.info/case%20studies/gay%20games.html" target="_blank">Marketing the Rainbow</a> · <a href="https://www.iaglma.org" target="_blank">IAGLMA.org</a> · PinkNews (2023) · InfluenceWatch. Note: some figures are reported approximations; 2023 numbers reflect combined Hong Kong + Guadalajara co-hosts.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     VIZ 7: SPORT ENGLAND PHYSICAL ACTIVITY PARADOX
+═══════════════════════════════════════════════════ -->
+<section class="section" id="viz7">
+  <div class="section-header">
+    <div class="section-num">07</div>
+    <div class="section-header-text">
+      <p class="section-tag">Sport England Active Lives Survey (England)</p>
+      <h2 class="section-title">The Physical Activity Paradox — LGBT Adults Are <em>More</em> Active, But Feel Less Welcome</h2>
+      <p class="section-subtitle">England's biennial Active Lives Adult Survey reveals a counterintuitive finding: gay, lesbian, and bisexual adults are more physically active than heterosexual adults by percentage. Yet gay men report lower enjoyment and fewer perceived opportunities to be active — pointing to a quality-of-environment problem, not a motivation problem.</p>
+    </div>
+  </div>
+
+  <div class="paradox-grid">
+    <div class="chart-wrap">
+      <canvas id="activityChart"></canvas>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div class="paradox-card">
+        <h3 style="color:var(--red);">The Enjoyment Gap (Gay Men, England)</h3>
+        <div style="display:flex;gap:20px;align-items:flex-end;margin-top:8px;">
+          <div>
+            <p style="font-family:'DM Serif Display',serif; font-size:52px; color:var(--red); line-height:1;">19%</p>
+            <p style="font-size:12px;color:var(--muted);">Gay men who<br>enjoy being active</p>
+          </div>
+          <div style="font-family:'DM Serif Display',serif;font-size:28px;color:var(--border);align-self:center;">vs.</div>
+          <div>
+            <p style="font-family:'DM Serif Display',serif; font-size:52px; color:var(--gold); line-height:1;">37%</p>
+            <p style="font-size:12px;color:var(--muted);">Average for<br>all men</p>
+          </div>
+        </div>
+      </div>
+      <div class="paradox-card">
+        <h3 style="color:var(--teal);">Perceived Opportunity Gap (Gay Men, England)</h3>
+        <div style="display:flex;gap:20px;align-items:flex-end;margin-top:8px;">
+          <div>
+            <p style="font-family:'DM Serif Display',serif; font-size:52px; color:var(--red); line-height:1;">25%</p>
+            <p style="font-size:12px;color:var(--muted);">Gay men who feel they<br>have opportunity to be active</p>
+          </div>
+          <div style="font-family:'DM Serif Display',serif;font-size:28px;color:var(--border);align-self:center;">vs.</div>
+          <div>
+            <p style="font-family:'DM Serif Display',serif; font-size:52px; color:var(--gold); line-height:1;">36%</p>
+            <p style="font-size:12px;color:var(--muted);">Average for<br>all men</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="source-tag">Sources: <a href="https://www.sportengland.org/research-and-data/research/lgbtq" target="_blank">Sport England Active Lives Adult Survey</a> (Nov 2019–Nov 2020, published April 2021) · <a href="https://www.sportengland.org/building-our-lgbtq-action-plan" target="_blank">Sport England LGBTQ Action Plan</a> (Nov 2020–Nov 2021 report). Large nationally representative sample of adults in England. Sexual orientation self-identified.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     VIZ 8: COUNTRY INCLUSION RANKINGS
+═══════════════════════════════════════════════════ -->
+<section class="section" id="viz8">
+  <div class="section-header">
+    <div class="section-num">08</div>
+    <div class="section-header-text">
+      <p class="section-tag">Out on the Fields, 2015</p>
+      <h2 class="section-title">Country Inclusion Rankings in Sport — USA Dead Last</h2>
+      <p class="section-subtitle">Out on the Fields created a composite "inclusion score" measuring perceived safety, acceptance, and reported homophobic incidents across six English-speaking countries. All six are core combat sports markets. The USA — home of the UFC — ranked last.</p>
+    </div>
+  </div>
+
+  <div class="chart-wrap" style="padding: 36px 40px;">
+    <p style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); margin-bottom:28px;">Composite LGBT Inclusion Score in Sport (1=worst, 6=best). Source: Out on the Fields, 2015.</p>
+    <div class="inclusion-bars" id="inclusionBars">
+      <div class="inc-row">
+        <div class="inc-rank">1st</div>
+        <div class="inc-country">🇨🇦 Canada</div>
+        <div class="inc-bar-bg"><div class="inc-bar-fill" style="width:100%; background: linear-gradient(90deg, var(--teal), #2de8a0);"></div></div>
+        <div class="inc-score c-teal">Best</div>
+      </div>
+      <div class="inc-row">
+        <div class="inc-rank">2nd</div>
+        <div class="inc-country">🇦🇺 Australia</div>
+        <div class="inc-bar-bg"><div class="inc-bar-fill" style="width:84%; background: linear-gradient(90deg, #4db3a8, #5ccfb0);"></div></div>
+        <div class="inc-score" style="color:#5ccfb0;">2nd</div>
+      </div>
+      <div class="inc-row">
+        <div class="inc-rank">3rd</div>
+        <div class="inc-country">🇳🇿 New Zealand</div>
+        <div class="inc-bar-bg"><div class="inc-bar-fill" style="width:72%; background: linear-gradient(90deg, #7b9eae, #8db8c0);"></div></div>
+        <div class="inc-score" style="color:#8db8c0;">3rd</div>
+      </div>
+      <div class="inc-row">
+        <div class="inc-rank">4th</div>
+        <div class="inc-country">🇬🇧 United Kingdom</div>
+        <div class="inc-bar-bg"><div class="inc-bar-fill" style="width:60%; background: linear-gradient(90deg, #a08878, #c0a088);"></div></div>
+        <div class="inc-score c-gold">4th</div>
+      </div>
+      <div class="inc-row">
+        <div class="inc-rank">5th</div>
+        <div class="inc-country">🇮🇪 Ireland</div>
+        <div class="inc-bar-bg"><div class="inc-bar-fill" style="width:46%; background: linear-gradient(90deg, #be7060, #d08070);"></div></div>
+        <div class="inc-score" style="color:#d08070;">5th</div>
+      </div>
+      <div class="inc-row">
+        <div class="inc-rank">6th</div>
+        <div class="inc-country">🇺🇸 United States</div>
+        <div class="inc-bar-bg"><div class="inc-bar-fill" style="width:28%; background: linear-gradient(90deg, var(--red), #f05050);"></div></div>
+        <div class="inc-score c-red">Worst</div>
+      </div>
+    </div>
+    <p style="font-size:13px; color:var(--muted); margin-top:28px; line-height:1.7; font-weight:300;">The USA had the highest percentage of gay men reporting verbal threats in a sports environment, and the highest percentage who heard homophobic slurs. "It feels like we've made a lot of progress with the acceptance of homosexuality in sports," noted Pat Griffin, University of Massachusetts professor emerita and study panel member. "But going by these results, we have a long way to go."</p>
+  </div>
+
+  <p class="source-tag">Source: Denison, E. & Kitchen, A. (2015). <em>Out on the Fields: The First International Study on Homophobia in Sport.</em> Nielsen Sport. N=9,494 across six countries. Ranking described as "inclusion score" in the study. <a href="https://time.com/3852611/sports-homophobia-study/" target="_blank">TIME coverage, May 2015</a> · Washington Blade (2015)</p>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p><strong>Data notes & methodology:</strong> All statistics are drawn from peer-reviewed studies, government surveys, or institutional research. The Out on the Fields study (2015) is the gold-standard international study on homophobia in sport; N=9,494 across 6 countries, with academic expert review. Sport England Active Lives is a large nationally representative biennial survey of English adults. Trevor Project surveys are large-sample LGBTQ-specific US surveys (N=34,000–40,000). Gay Games participant figures are drawn from official FGG records and archived sources; some figures from earlier games are reported approximations. MMA fighter visibility data is based on documented, publicly confirmed coming-out statements.</p>
+  <p style="margin-top:12px;"><strong>Research compiled:</strong> February 2026 · Scope: English-speaking countries (USA, UK, Canada, Australia, NZ, Ireland) · Focus: Martial arts & combat sports, with broader sport context.</p>
+</footer>
+
+<script>
+// ─── CHART DEFAULTS ─────────────────────────────────────────────────────────
+Chart.defaults.color = '#9494a8';
+Chart.defaults.font.family = "'IBM Plex Mono', monospace";
+Chart.defaults.font.size = 11;
+
+const gridColor = 'rgba(42,42,53,0.8)';
+const borderColor = '#2a2a35';
+
+// ─── CHART 3: SAFETY PERCEPTIONS ────────────────────────────────────────────
+const safetyCtx = document.getElementById('safetyChart').getContext('2d');
+new Chart(safetyCtx, {
+  type: 'bar',
+  data: {
+    labels: [
+      'Witnessed/experienced\nhomophobia in sport',
+      'Believe gay person\nnot safe as spectator',
+      'Believe youth sport\nnot safe for LGB',
+      'Gay men personally\ntargeted in sport',
+      'Lesbians personally\ntargeted in sport',
+      'Straight men personally\ntargeted in sport',
+      'Homophobia more common\nin team sports than society',
+    ],
+    datasets: [{
+      label: '% of respondents',
+      data: [80, 83, 78, 50, 53, 25, 62],
+      backgroundColor: [
+        'rgba(230,63,63,0.8)',
+        'rgba(230,63,63,0.7)',
+        'rgba(212,168,67,0.8)',
+        'rgba(212,168,67,0.7)',
+        'rgba(155,111,219,0.7)',
+        'rgba(63,200,192,0.5)',
+        'rgba(155,111,219,0.8)',
+      ],
+      borderColor: [
+        'rgba(230,63,63,1)',
+        'rgba(230,63,63,1)',
+        'rgba(212,168,67,1)',
+        'rgba(212,168,67,1)',
+        'rgba(155,111,219,1)',
+        'rgba(63,200,192,1)',
+        'rgba(155,111,219,1)',
+      ],
+      borderWidth: 1,
+      borderRadius: 2,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => `  ${ctx.parsed.x}%`
+        }
+      }
+    },
+    scales: {
+      x: {
+        max: 100,
+        grid: { color: gridColor },
+        border: { color: borderColor },
+        ticks: { callback: v => v + '%' }
+      },
+      y: {
+        grid: { color: 'transparent' },
+        border: { color: borderColor },
+        ticks: { font: { size: 11 } }
+      }
+    }
+  }
+});
+
+// ─── CHART 4: PARTICIPATION GAP ─────────────────────────────────────────────
+const partCtx = document.getElementById('participationChart').getContext('2d');
+new Chart(partCtx, {
+  type: 'bar',
+  data: {
+    labels: ['Australia\n(General Youth)', 'Australia\n(LGBTQI+ Youth)', 'Australia\n(Gay Men)', 'Australia\n(Lesbians)', 'USA\n(General Youth)', 'USA\n(LGBTQ Youth)'],
+    datasets: [{
+      label: 'Sport participation rate (%)',
+      data: [60, 33, 31, 29, 52, 33],
+      backgroundColor: [
+        'rgba(63,200,192,0.6)',
+        'rgba(230,63,63,0.6)',
+        'rgba(230,63,63,0.5)',
+        'rgba(155,111,219,0.5)',
+        'rgba(63,200,192,0.5)',
+        'rgba(230,63,63,0.55)',
+      ],
+      borderColor: [
+        'rgba(63,200,192,1)',
+        'rgba(230,63,63,1)',
+        'rgba(230,63,63,1)',
+        'rgba(155,111,219,1)',
+        'rgba(63,200,192,1)',
+        'rgba(230,63,63,1)',
+      ],
+      borderWidth: 1,
+      borderRadius: 2,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: { label: ctx => `  ${ctx.parsed.y}% participation` }
+      },
+      annotation: {}
+    },
+    scales: {
+      x: { grid: { color: gridColor }, border: { color: borderColor } },
+      y: {
+        max: 80,
+        grid: { color: gridColor },
+        border: { color: borderColor },
+        ticks: { callback: v => v + '%' }
+      }
+    }
+  }
+});
+
+// ─── CHART 5: OUTNESS PARADOX ────────────────────────────────────────────────
+const outnessCtx = document.getElementById('outnessChart').getContext('2d');
+new Chart(outnessCtx, {
+  type: 'bar',
+  data: {
+    labels: [
+      'Not out to\nanyone',
+      'Out to a\nfew people',
+      'Out to some\npeople',
+      'Out to most\nor all people',
+    ],
+    datasets: [{
+      label: '% participating in school sports',
+      data: [33, 28, 24, 20],
+      backgroundColor: [
+        'rgba(63,200,192,0.7)',
+        'rgba(212,168,67,0.7)',
+        'rgba(230,113,63,0.7)',
+        'rgba(230,63,63,0.7)',
+      ],
+      borderColor: [
+        'rgba(63,200,192,1)',
+        'rgba(212,168,67,1)',
+        'rgba(230,113,63,1)',
+        'rgba(230,63,63,1)',
+      ],
+      borderWidth: 1,
+      borderRadius: 2,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: { label: ctx => `  ${ctx.parsed.y}% participate in sports` }
+      }
+    },
+    scales: {
+      x: { grid: { color: 'transparent' }, border: { color: borderColor } },
+      y: {
+        max: 45,
+        grid: { color: gridColor },
+        border: { color: borderColor },
+        ticks: { callback: v => v + '%' },
+        title: { display: true, text: '% participating in school sports', color: '#5a5a6e', font: { size: 10 } }
+      }
+    }
+  }
+});
+
+// ─── CHART 6: GAY GAMES ──────────────────────────────────────────────────────
+const ggCtx = document.getElementById('gayGamesChart').getContext('2d');
+new Chart(ggCtx, {
+  type: 'line',
+  data: {
+    labels: ['1982\nSan Francisco', '1986\nSan Francisco', '1990\nVancouver', '1994\nNew York', '1998\nAmsterdam', '2002\nSydney', '2006\nChicago', '2010\nCologne', '2014\nCleveland', '2018\nParis', '2023\nHK + Guad.'],
+    datasets: [{
+      label: 'Athletes',
+      data: [1350, 3700, 7500, 10864, 14715, 11000, 12000, 10000, 8000, 10000, 5000],
+      borderColor: 'rgba(212,168,67,0.9)',
+      backgroundColor: 'rgba(212,168,67,0.08)',
+      borderWidth: 2,
+      pointBackgroundColor: 'rgba(212,168,67,1)',
+      pointRadius: 5,
+      pointHoverRadius: 7,
+      fill: true,
+      tension: 0.3,
+    },
+    {
+      label: 'Summer Olympics athletes (ref.)',
+      data: [null, null, null, 9356, 10318, 10651, 10625, 10942, 10548, 11238, null],
+      borderColor: 'rgba(63,200,192,0.4)',
+      borderWidth: 1,
+      borderDash: [6,4],
+      pointRadius: 3,
+      pointBackgroundColor: 'rgba(63,200,192,0.6)',
+      fill: false,
+      tension: 0.1,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+        labels: { boxWidth: 12, color: '#9494a8', font: { size: 11 } }
+      },
+      tooltip: {
+        callbacks: { label: ctx => `  ${ctx.parsed.y?.toLocaleString()} athletes` }
+      }
+    },
+    scales: {
+      x: { grid: { color: gridColor }, border: { color: borderColor } },
+      y: {
+        grid: { color: gridColor },
+        border: { color: borderColor },
+        ticks: { callback: v => v.toLocaleString() }
+      }
+    }
+  }
+});
+
+// ─── CHART 7: PHYSICAL ACTIVITY BY ORIENTATION ──────────────────────────────
+const actCtx = document.getElementById('activityChart').getContext('2d');
+new Chart(actCtx, {
+  type: 'bar',
+  data: {
+    labels: ['All adults', 'Heterosexual', 'Gay / Lesbian', 'Bisexual', '"Other" orientation'],
+    datasets: [{
+      label: '% meeting 150+ min/week physical activity',
+      data: [61.4, 61.8, 70.5, 67.5, 49.7],
+      backgroundColor: [
+        'rgba(90,90,110,0.6)',
+        'rgba(63,200,192,0.4)',
+        'rgba(212,168,67,0.8)',
+        'rgba(155,111,219,0.6)',
+        'rgba(230,63,63,0.5)',
+      ],
+      borderColor: [
+        'rgba(90,90,110,1)',
+        'rgba(63,200,192,1)',
+        'rgba(212,168,67,1)',
+        'rgba(155,111,219,1)',
+        'rgba(230,63,63,1)',
+      ],
+      borderWidth: 1,
+      borderRadius: 2,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: { label: ctx => `  ${ctx.parsed.y}% meet CMO guidelines` }
+      }
+    },
+    scales: {
+      x: { grid: { color: 'transparent' }, border: { color: borderColor } },
+      y: {
+        min: 40,
+        max: 80,
+        grid: { color: gridColor },
+        border: { color: borderColor },
+        ticks: { callback: v => v + '%' },
+        title: { display: true, text: '% meeting 150+ min/wk moderate activity', color: '#5a5a6e', font: { size: 10 } }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
