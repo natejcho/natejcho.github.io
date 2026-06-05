@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Floyd Mayweather Jr. — Career Earnings Ledger (1996–2017)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;0,9..144,900;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f6f1e7;
+    --paper-deep: #ede5d3;
+    --ink: #14110d;
+    --ink-soft: #2a241c;
+    --ink-faint: #6b6354;
+    --rule: #c5bba2;
+    --accent: #a01a14;
+    --accent-soft: #d4928a;
+    --gold: #8a6a1f;
+    --topRank-tint: rgba(20, 17, 13, 0.04);
+    --indie-tint: rgba(160, 26, 20, 0.05);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-weight: 400;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* MASTHEAD */
+  .masthead {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 64px 48px 32px;
+    border-bottom: 1px solid var(--ink);
+  }
+  .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .kicker::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: clamp(40px, 6vw, 84px);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin: 0 0 24px;
+    font-variation-settings: "opsz" 144, "SOFT" 30;
+  }
+  h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  .deck {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(18px, 2vw, 24px);
+    line-height: 1.4;
+    color: var(--ink-soft);
+    max-width: 720px;
+    margin: 0 0 32px;
+  }
+  .byline-strip {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+  }
+  .byline-strip strong { color: var(--ink); font-weight: 500; }
+
+  /* THESIS */
+  .thesis {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 48px 48px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+  }
+  .thesis p {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .thesis p:first-child::first-letter {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 72px;
+    float: left;
+    line-height: 0.85;
+    padding: 6px 10px 0 0;
+    color: var(--accent);
+  }
+  .pull-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-content: start;
+  }
+  .stat {
+    border-top: 2px solid var(--ink);
+    padding-top: 12px;
+  }
+  .stat .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 6px;
+  }
+  .stat .num {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 36px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .stat .num.accent { color: var(--accent); }
+
+  /* LEDGER */
+  .ledger-wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 24px 48px 64px;
+  }
+  .table-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .table-meta h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 28px;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .legend {
+    display: flex;
+    gap: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-swatch {
+    width: 12px; height: 12px; border-radius: 2px;
+    border: 1px solid var(--rule);
+  }
+  .legend-swatch.tr { background: var(--topRank-tint); }
+  .legend-swatch.in { background: var(--indie-tint); border-color: var(--accent-soft); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  thead th {
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding: 12px 12px 10px;
+    border-bottom: 1px solid var(--ink);
+    vertical-align: bottom;
+  }
+  thead th.num-col { text-align: right; }
+
+  tbody tr {
+    border-bottom: 1px solid var(--rule);
+    transition: background 0.15s;
+  }
+  tbody tr.era-toprank { background: var(--topRank-tint); }
+  tbody tr.era-independent { background: var(--indie-tint); }
+  tbody tr:hover { background: rgba(160, 26, 20, 0.08); }
+
+  tbody td {
+    padding: 14px 12px;
+    vertical-align: middle;
+  }
+  td.fight-no {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    width: 36px;
+  }
+  td.date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+    width: 90px;
+  }
+  td.opponent {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: -0.005em;
+  }
+  .opp-cell { display: flex; align-items: center; gap: 14px; }
+  .avatar {
+    position: relative;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--paper-deep);
+    border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--ink-soft);
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .avatar.notable {
+    border-color: var(--accent-soft);
+    background-color: rgba(160, 26, 20, 0.08);
+    color: var(--accent);
+  }
+  .avatar img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    opacity: 0;
+    transition: opacity 0.35s ease-out;
+  }
+  .avatar img.loaded { opacity: 1; }
+  .avatar.has-photo.notable { border-color: var(--accent); }
+  .result {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    width: 90px;
+  }
+  .result strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .purse, .total {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    text-align: right;
+    white-space: nowrap;
+  }
+  .purse.big, .total.big {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .purse.huge, .total.huge {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+  }
+  .na {
+    color: var(--ink-faint);
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+  }
+  .dash { color: var(--ink-faint); }
+
+  /* ERA DIVIDER */
+  .era-divider {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .era-divider td {
+    padding: 18px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+  .era-divider .era-label {
+    color: var(--paper);
+  }
+  .era-divider .era-detail {
+    color: rgba(246, 241, 231, 0.6);
+    text-align: right;
+  }
+
+  /* FOOTER NOTES */
+  .footnotes {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 64px 48px;
+    border-top: 1px solid var(--ink);
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 64px;
+  }
+  .footnotes h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 22px;
+    margin: 0 0 20px;
+    letter-spacing: -0.01em;
+  }
+  .footnotes ol, .footnotes ul {
+    padding-left: 0;
+    list-style: none;
+    counter-reset: srcCount;
+  }
+  .footnotes li {
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+    padding-left: 28px;
+    position: relative;
+    counter-increment: srcCount;
+  }
+  .footnotes li::before {
+    content: counter(srcCount, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+  .footnotes li em { font-style: italic; }
+  .footnotes a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+    text-underline-offset: 3px;
+  }
+  .footnotes a:hover { text-decoration-color: var(--accent); }
+
+  .methodology {
+    border-left: 2px solid var(--ink);
+    padding-left: 24px;
+  }
+  .methodology p {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin: 0 0 14px;
+  }
+  .methodology p strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .colophon {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 48px 64px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  @media (max-width: 900px) {
+    .masthead, .thesis, .ledger-wrap, .footnotes, .colophon { padding-left: 24px; padding-right: 24px; }
+    .thesis, .footnotes { grid-template-columns: 1fr; gap: 32px; }
+    .table-meta { flex-direction: column; align-items: flex-start; gap: 12px; }
+    table { font-size: 12px; }
+    td.opponent { font-size: 14px; }
+    .avatar { width: 36px; height: 36px; font-size: 12px; }
+    thead th.hide-mobile, tbody td.hide-mobile { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="kicker">Documentary research · Career earnings ledger</div>
+  <h1>The Money <em>Floyd built.</em></h1>
+  <p class="deck">A fight-by-fight accounting of Floyd Mayweather Jr.'s professional career, with the 2006 buyout from Top Rank marked as the inflection that turned a contracted fighter into a self-promoting empire.</p>
+  <div class="byline-strip">
+    <span><strong>50 fights</strong> · 1996 – 2017</span>
+    <span><strong>Record:</strong> 50 – 0</span>
+    <span><strong>Disclosed earnings:</strong> ~$807,954,000</span>
+    <span><strong>Career total est:</strong> $1.1 B+</span>
+  </div>
+</header>
+
+<section class="thesis">
+  <p>For the first decade of his career, Mayweather earned what a contracted fighter earns: a purse. His promoter, Top Rank, captured everything else — the gate, the pay-per-view upside, the ancillary revenue. In April 2006, Mayweather paid Bob Arum $750,000 to exercise a buyout clause in his contract. He founded Mayweather Promotions the following year. The financial structure of every subsequent fight changed: guaranteed purse, plus back-end percentage of PPV, plus international rights, plus gate, plus merchandise, plus the promoter's fee retained in-house. The table below shows what that change looks like in fifty data points.</p>
+  <div class="pull-stats">
+    <div class="stat">
+      <div class="label">Top Rank era · 36 fights</div>
+      <div class="num">$8M</div>
+      <div class="label" style="margin-top:6px; color: var(--ink-soft);">Highest single purse (Baldomir, 2006)</div>
+    </div>
+    <div class="stat">
+      <div class="label">Independent era · 14 fights</div>
+      <div class="num accent">$275M+</div>
+      <div class="label" style="margin-top:6px; color: var(--ink-soft);">Single-night high (McGregor, 2017)</div>
+    </div>
+    <div class="stat">
+      <div class="label">Pro debut purse · 1996</div>
+      <div class="num">$2,500</div>
+      <div class="label" style="margin-top:6px; color: var(--ink-soft);">vs. Apodaca, Texas Station Casino</div>
+    </div>
+    <div class="stat">
+      <div class="label">Buyout from Top Rank · 2006</div>
+      <div class="num accent">$750K</div>
+      <div class="label" style="margin-top:6px; color: var(--ink-soft);">Returned ~$1 billion across next 14 fights</div>
+    </div>
+  </div>
+</section>
+
+<section class="ledger-wrap">
+  <div class="table-meta">
+    <h2>Professional bouts, in order</h2>
+    <div class="legend">
+      <div class="legend-item"><span class="legend-swatch tr"></span> Top Rank era (1996–2006)</div>
+      <div class="legend-item"><span class="legend-swatch in"></span> Independent era (2006–2017)</div>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Date</th>
+        <th>Opponent</th>
+        <th class="hide-mobile">Result</th>
+        <th class="num-col">Guaranteed Purse</th>
+        <th class="num-col">Total Earnings</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <!-- TOP RANK ERA -->
+      <tr class="era-toprank">
+        <td class="fight-no">01</td>
+        <td class="date">Oct 11, 1996</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Roberto Apodaca">RA</div>Roberto Apodaca</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · TKO 2</td>
+        <td class="purse">$2,500</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">02</td>
+        <td class="date">Nov 30, 1996</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Reggie Sanders">RS</div>Reggie Sanders</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · UD 4</td>
+        <td class="purse na">undisclosed</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">03</td>
+        <td class="date">Jan 18, 1997</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Jerry Cooper">JC</div>Jerry Cooper</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · KO 1</td>
+        <td class="purse">$7,500</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">04</td>
+        <td class="date">Feb 1, 1997</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Edgar Ayala">EA</div>Edgar Ayala</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · TKO 2</td>
+        <td class="purse na">undisclosed</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">05</td>
+        <td class="date">Mar 12, 1997</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Kino Rodriguez">KR</div>Kino Rodriguez</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · TKO 1</td>
+        <td class="purse na">undisclosed</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">06</td>
+        <td class="date">Apr 12, 1997</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Bobby Giepert">BG</div>Bobby Giepert</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · TKO 1</td>
+        <td class="purse">$5,000</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">07</td>
+        <td class="date">May 9, 1997</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Tony Duran">TD</div>Tony Duran</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · KO 1</td>
+        <td class="purse">$2,000</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">08</td>
+        <td class="date">Jun 14, 1997</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Larry O'Shields">LO</div>Larry O'Shields</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · UD 6</td>
+        <td class="purse na">undisclosed</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">09</td>
+        <td class="date">Jul 12, 1997</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Jesus Chavez">JC</div>Jesús Chávez</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · TKO 5</td>
+        <td class="purse na">undisclosed</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">10</td>
+        <td class="date">Sep 6, 1997</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Louie Leija">LL</div>Louie Leija</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · TKO 2</td>
+        <td class="purse na">undisclosed</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">11</td>
+        <td class="date">Oct 14, 1997</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Felipe Garcia">FG</div>Felipe Garcia</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · KO 6</td>
+        <td class="purse na">undisclosed</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">12</td>
+        <td class="date">Nov 20, 1997</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Angelo Nunez">AN</div>Angelo Núñez</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · TKO 3</td>
+        <td class="purse na">undisclosed</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">13</td>
+        <td class="date">Jan 9, 1998</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Hector Arroyo">HA</div>Héctor Arroyo</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · TKO 5</td>
+        <td class="purse na">undisclosed</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">14</td>
+        <td class="date">Feb 28, 1998</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Sam Girard">SG</div>Sam Girard</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · KO 2</td>
+        <td class="purse na">undisclosed</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">15</td>
+        <td class="date">Mar 23, 1998</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Miguel Melo">MM</div>Miguel Melo</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · TKO 3</td>
+        <td class="purse na">undisclosed</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">16</td>
+        <td class="date">Apr 18, 1998</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Gustavo Cuello">GC</div>Gustavo Cuello</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · UD 10</td>
+        <td class="purse na">undisclosed</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">17</td>
+        <td class="date">Jun 14, 1998</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Tony Pep">TP</div>Tony Pep</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · UD 10</td>
+        <td class="purse na">undisclosed</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">18</td>
+        <td class="date">Oct 3, 1998</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar notable" data-name="Genaro Hernandez">GH</div>Genaro Hernández <span style="font-size:11px; color:var(--ink-faint); font-family:'JetBrains Mono', monospace; margin-left:6px;">· FIRST WORLD TITLE</span></div></td>
+        <td class="result hide-mobile"><strong>W</strong> · TKO 8</td>
+        <td class="purse">$137,000</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">19</td>
+        <td class="date">Dec 19, 1998</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Angel Manfredy">AM</div>Angel Manfredy</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · TKO 2</td>
+        <td class="purse">$500,000</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">20</td>
+        <td class="date">Feb 17, 1999</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Carlos Rios">CR</div>Carlos Ríos</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · UD 12</td>
+        <td class="purse na">undisclosed</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">21</td>
+        <td class="date">May 22, 1999</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Justin Juuko">JJ</div>Justin Juuko</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · KO 9</td>
+        <td class="purse">$400,000</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">22</td>
+        <td class="date">Sep 11, 1999</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Carlos Gerena">CG</div>Carlos Gerena</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · RTD 7</td>
+        <td class="purse">$500,000</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">23</td>
+        <td class="date">Mar 18, 2000</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Gregorio Vargas">GV</div>Gregorio Vargas</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · UD 12</td>
+        <td class="purse">$750,000</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">24</td>
+        <td class="date">Oct 21, 2000</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Emanuel Augustus">EA</div>Emanuel Augustus</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · TKO 9</td>
+        <td class="purse">$250,000</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">25</td>
+        <td class="date">Jan 20, 2001</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar notable" data-name="Diego Corrales">DC</div>Diego Corrales</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · TKO 10</td>
+        <td class="purse">$1,500,000</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">26</td>
+        <td class="date">May 26, 2001</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Carlos Hernandez">CH</div>Carlos Hernández</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · UD 12</td>
+        <td class="purse">$2,200,000</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">27</td>
+        <td class="date">Nov 10, 2001</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Jesus Chavez">JC</div>Jesús Chávez</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · RTD 9</td>
+        <td class="purse">$1,800,000</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">28</td>
+        <td class="date">Apr 20, 2002</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar notable" data-name="Jose Luis Castillo">JC</div>José Luis Castillo</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · UD 12</td>
+        <td class="purse">$2,200,000</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">29</td>
+        <td class="date">Dec 7, 2002</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar notable" data-name="Jose Luis Castillo">JC</div>José Luis Castillo II</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · UD 12</td>
+        <td class="purse">$2,400,000</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">30</td>
+        <td class="date">Apr 19, 2003</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Victoriano Sosa">VS</div>Victoriano Sosa</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · UD 12</td>
+        <td class="purse">$2,800,000</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">31</td>
+        <td class="date">Nov 1, 2003</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Phillip Ndou">PN</div>Phillip N'dou</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · TKO 7</td>
+        <td class="purse">$3,000,000</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">32</td>
+        <td class="date">May 22, 2004</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="DeMarcus Corley">DC</div>DeMarcus Corley</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · UD 12</td>
+        <td class="purse">$3,000,000</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">33</td>
+        <td class="date">Jan 22, 2005</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Henry Bruseles">HB</div>Henry Bruseles</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · TKO 8</td>
+        <td class="purse na">undisclosed</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">34</td>
+        <td class="date">Jun 25, 2005</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar notable" data-name="Arturo Gatti">AG</div>Arturo Gatti</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · RTD 6</td>
+        <td class="purse">$3,200,000</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">35</td>
+        <td class="date">Nov 19, 2005</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Sharmba Mitchell">SM</div>Sharmba Mitchell</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · TKO 6</td>
+        <td class="purse">$4,300,000</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-toprank">
+        <td class="fight-no">36</td>
+        <td class="date">Apr 8, 2006</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar notable" data-name="Zab Judah">ZJ</div>Zab Judah</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · UD 12</td>
+        <td class="purse">$5,000,000</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+
+      <!-- THE DIVIDER -->
+      <tr class="era-divider">
+        <td colspan="3">
+          <span class="era-label">→ APRIL 2006 · $750,000 BUYOUT FROM TOP RANK</span>
+        </td>
+        <td class="era-detail" colspan="3">
+          Mayweather Promotions founded · revenue model inverts
+        </td>
+      </tr>
+
+      <!-- INDEPENDENT ERA -->
+      <tr class="era-independent">
+        <td class="fight-no">37</td>
+        <td class="date">Nov 4, 2006</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Carlos Baldomir">CB</div>Carlos Baldomir</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · UD 12</td>
+        <td class="purse big">$8,000,000</td>
+        <td class="total"><span class="dash">—</span></td>
+      </tr>
+      <tr class="era-independent">
+        <td class="fight-no">38</td>
+        <td class="date">May 5, 2007</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar notable" data-name="Oscar De La Hoya">OD</div>Oscar De La Hoya</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · SD 12</td>
+        <td class="purse big">~$10,000,000</td>
+        <td class="total big">$25,000,000</td>
+      </tr>
+      <tr class="era-independent">
+        <td class="fight-no">39</td>
+        <td class="date">Dec 8, 2007</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar notable" data-name="Ricky Hatton">RH</div>Ricky Hatton</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · TKO 10</td>
+        <td class="purse na">undisclosed base</td>
+        <td class="total big">$38,000,000</td>
+      </tr>
+      <tr class="era-independent">
+        <td class="fight-no">40</td>
+        <td class="date">Sep 19, 2009</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar notable" data-name="Juan Manuel Marquez">JM</div>Juan Manuel Márquez</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · UD 12</td>
+        <td class="purse na">undisclosed base</td>
+        <td class="total big">$25,000,000</td>
+      </tr>
+      <tr class="era-independent">
+        <td class="fight-no">41</td>
+        <td class="date">May 1, 2010</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar notable" data-name="Shane Mosley">SM</div>Shane Mosley</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · UD 12</td>
+        <td class="purse big">$22,500,000</td>
+        <td class="total big">$40,000,000</td>
+      </tr>
+      <tr class="era-independent">
+        <td class="fight-no">42</td>
+        <td class="date">Sep 17, 2011</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Victor Ortiz">VO</div>Victor Ortiz</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · KO 4</td>
+        <td class="purse big">$25,000,000</td>
+        <td class="total big">$40,000,000</td>
+      </tr>
+      <tr class="era-independent">
+        <td class="fight-no">43</td>
+        <td class="date">May 5, 2012</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar notable" data-name="Miguel Cotto">MC</div>Miguel Cotto</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · UD 12</td>
+        <td class="purse big">$32,000,000</td>
+        <td class="total big">$45,000,000</td>
+      </tr>
+      <tr class="era-independent">
+        <td class="fight-no">44</td>
+        <td class="date">May 4, 2013</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Robert Guerrero">RG</div>Robert Guerrero</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · UD 12</td>
+        <td class="purse big">$32,000,000</td>
+        <td class="total big">$34,000,000</td>
+      </tr>
+      <tr class="era-independent">
+        <td class="fight-no">45</td>
+        <td class="date">Sep 14, 2013</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar notable" data-name="Canelo Alvarez">CA</div>Saúl 'Canelo' Álvarez</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · MD 12</td>
+        <td class="purse big">$41,500,000</td>
+        <td class="total huge">$73,000,000</td>
+      </tr>
+      <tr class="era-independent">
+        <td class="fight-no">46</td>
+        <td class="date">May 3, 2014</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Marcos Maidana">MM</div>Marcos Maidana</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · MD 12</td>
+        <td class="purse big">$32,000,000</td>
+        <td class="total big">$32,000,000+</td>
+      </tr>
+      <tr class="era-independent">
+        <td class="fight-no">47</td>
+        <td class="date">Sep 13, 2014</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Marcos Maidana">MM</div>Marcos Maidana II</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · UD 12</td>
+        <td class="purse big">$32,000,000</td>
+        <td class="total big">$32,000,000+</td>
+      </tr>
+      <tr class="era-independent">
+        <td class="fight-no">48</td>
+        <td class="date">May 2, 2015</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar notable" data-name="Manny Pacquiao">MP</div>Manny Pacquiao <span style="font-size:11px; color:var(--accent); font-family:'JetBrains Mono', monospace; margin-left:6px;">· FIGHT OF THE CENTURY</span></div></td>
+        <td class="result hide-mobile"><strong>W</strong> · UD 12</td>
+        <td class="purse huge">$100,000,000</td>
+        <td class="total huge">$250,000,000</td>
+      </tr>
+      <tr class="era-independent">
+        <td class="fight-no">49</td>
+        <td class="date">Sep 12, 2015</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar" data-name="Andre Berto">AB</div>Andre Berto</div></td>
+        <td class="result hide-mobile"><strong>W</strong> · UD 12</td>
+        <td class="purse big">$32,000,000</td>
+        <td class="total big">$32,000,000</td>
+      </tr>
+      <tr class="era-independent">
+        <td class="fight-no">50</td>
+        <td class="date">Aug 26, 2017</td>
+        <td class="opponent"><div class="opp-cell"><div class="avatar notable" data-name="Conor McGregor">CM</div>Conor McGregor <span style="font-size:11px; color:var(--accent); font-family:'JetBrains Mono', monospace; margin-left:6px;">· THE MONEY FIGHT</span></div></td>
+        <td class="result hide-mobile"><strong>W</strong> · TKO 10</td>
+        <td class="purse huge">$100,000,000</td>
+        <td class="total huge">~$275,000,000</td>
+      </tr>
+
+    </tbody>
+  </table>
+</section>
+
+<section class="footnotes">
+  <div>
+    <h3>Sources</h3>
+    <ol>
+      <li>Paul Conolly, "Floyd Mayweather has earned over $800 million throughout the course of his incredible career," <em>GiveMeSport</em>, March 19, 2020. Compiled from <em>The Sports Daily</em>. <a href="https://www.givemesport.com/1556151-floyd-mayweather-has-earned-over-800-million-throughout-the-course-of-his-incredible-career/">Link</a></li>
+      <li>Dan Rafael, "Floyd Mayweather Jr. ties purse mark," <em>ESPN</em>, May 4, 2013. NSAC-filed guarantee figures.</li>
+      <li>Dan Rafael, "Floyd Mayweather takes pay cut for Andre Berto fight with $32M purse," <em>ESPN</em>, September 11, 2015. NSAC contract figures for Showtime/CBS deal.</li>
+      <li>Dan Rafael, "Floyd Mayweather's purse at $100M; Conor McGregor's $30M biggest of career," <em>ESPN</em>, August 26, 2017.</li>
+      <li>Dan Rafael, "Sources: Mayweather-Berto draws between 400K and 550K PPV buys," <em>ESPN</em>, September 18, 2015.</li>
+      <li>Tim Smith, "Making Money: How Floyd Mayweather Produces Boxing's Biggest Fights," <em>Bleacher Report</em>, September 10, 2014.</li>
+      <li>Chris Mannix and Greg Bishop, "An Exclusive Look at the Six-Year Negotiation for Mayweather-Pacquiao," <em>Sports Illustrated</em>, April 28, 2015.</li>
+      <li>Kurt Badenhausen, various reports on Mayweather earnings, <em>Forbes</em>, 2013–2017.</li>
+      <li>Nevada State Athletic Commission contract filings (public records). Most post-2010 guarantees verifiable via NSAC bout agreements.</li>
+      <li>BoxRec.com career record (cross-reference for dates, opponents, results).</li>
+      <li>Floyd Mayweather Jr., Wikipedia. <a href="https://en.wikipedia.org/wiki/Floyd_Mayweather_Jr.">Link</a></li>
+    </ol>
+  </div>
+  <div class="methodology">
+    <h3>Methodology</h3>
+    <p><strong>Guaranteed Purse</strong> reflects the minimum guarantee filed with the Nevada State Athletic Commission prior to each bout, where disclosed. Pre-1998 bouts often went unreported by purse; "undisclosed" indicates a flat purse was paid but never made public.</p>
+    <p><strong>Total Earnings</strong> reflects the reported all-in take per fight, including back-end PPV percentage, international broadcast rights, live gate share, sponsorship, and merchandise — components Mayweather only captured after founding Mayweather Promotions in 2007. Pre-2006 totals are marked with a dash because no back-end structure existed; Mayweather earned only the contracted fighter purse and Top Rank retained promotional revenue.</p>
+    <p>Disclosed figures may understate true earnings. <em>Forbes</em> and other outlets have estimated Mayweather's career total at $1.1–1.3 billion, accounting for revenue not captured in public filings.</p>
+    <p><strong>Opponent photos:</strong> Pulled dynamically from Wikipedia thumbnails on page load. Where no Wikipedia article exists (most pre-1998 opponents), the placeholder shows the opponent's initials.</p>
+  </div>
+</section>
+
+<footer class="colophon">
+  <div>Career earnings ledger · 1996 – 2017</div>
+  <div>Compiled for documentary research</div>
+</footer>
+
+<script>
+  // Wikipedia title overrides for opponents whose Wikipedia page title differs
+  // from the display name (disambiguation suffixes, special characters, etc.)
+  // null = no Wikipedia article exists, keep initials placeholder.
+  const wikipediaOverrides = {
+    "Roberto Apodaca": null,
+    "Reggie Sanders": null,
+    "Jerry Cooper": null,
+    "Edgar Ayala": null,
+    "Kino Rodriguez": null,
+    "Bobby Giepert": null,
+    "Tony Duran": null,
+    "Larry O'Shields": null,
+    "Jesus Chavez": "Jesús Chávez (boxer)",
+    "Louie Leija": null,
+    "Felipe Garcia": null,
+    "Angelo Nunez": null,
+    "Hector Arroyo": null,
+    "Sam Girard": null,
+    "Miguel Melo": null,
+    "Gustavo Cuello": null,
+    "Tony Pep": "Tony Pep",
+    "Genaro Hernandez": "Genaro Hernández",
+    "Angel Manfredy": "Angel Manfredy",
+    "Carlos Rios": "Carlos Ríos (boxer)",
+    "Justin Juuko": "Justin Juuko",
+    "Carlos Gerena": "Carlos Gerena",
+    "Gregorio Vargas": "Gregorio Vargas",
+    "Emanuel Augustus": "Emanuel Augustus",
+    "Diego Corrales": "Diego Corrales",
+    "Carlos Hernandez": "Carlos Hernández (boxer, born 1971)",
+    "Jose Luis Castillo": "José Luis Castillo (boxer)",
+    "Victoriano Sosa": "Victoriano Sosa",
+    "Phillip Ndou": "Phillip N'dou",
+    "DeMarcus Corley": "DeMarcus Corley",
+    "Henry Bruseles": "Henry Bruseles",
+    "Arturo Gatti": "Arturo Gatti",
+    "Sharmba Mitchell": "Sharmba Mitchell",
+    "Zab Judah": "Zab Judah",
+    "Carlos Baldomir": "Carlos Baldomir",
+    "Oscar De La Hoya": "Oscar De La Hoya",
+    "Ricky Hatton": "Ricky Hatton",
+    "Juan Manuel Marquez": "Juan Manuel Márquez",
+    "Shane Mosley": "Shane Mosley",
+    "Victor Ortiz": "Victor Ortiz",
+    "Miguel Cotto": "Miguel Cotto",
+    "Robert Guerrero": "Robert Guerrero",
+    "Canelo Alvarez": "Canelo Álvarez",
+    "Marcos Maidana": "Marcos Maidana",
+    "Manny Pacquiao": "Manny Pacquiao",
+    "Andre Berto": "Andre Berto",
+    "Conor McGregor": "Conor McGregor"
+  };
+
+  // Batch-fetch Wikipedia thumbnails using JSONP.
+  //
+  // Why JSONP and not fetch(): when this file is opened directly from disk
+  // (file:// URL), Safari and Chromium treat the page as a unique origin and
+  // block fetch() to any other origin — including Wikipedia's API, even though
+  // that API serves CORS headers. JSONP works around this by loading the
+  // response as a <script> tag, which is not subject to that restriction.
+  // The MediaWiki API natively supports JSONP via &callback=…
+  function fetchThumbnailsJSONP(titles) {
+    if (!titles.length) return Promise.resolve(new Map());
+
+    // The anonymous API limit is 50 titles per request; chunk to be safe.
+    const chunks = [];
+    for (let i = 0; i < titles.length; i += 50) chunks.push(titles.slice(i, i + 50));
+
+    const requests = chunks.map((chunk, idx) => new Promise((resolve) => {
+      const callbackName = '__wikiCb_' + idx + '_' + Date.now() + '_' + Math.floor(Math.random() * 1e6);
+      const script = document.createElement('script');
+      let settled = false;
+      const cleanup = (value) => {
+        if (settled) return;
+        settled = true;
+        try { delete window[callbackName]; } catch (e) { window[callbackName] = undefined; }
+        if (script.parentNode) script.parentNode.removeChild(script);
+        resolve(value);
+      };
+      window[callbackName] = (data) => cleanup(data);
+      script.onerror = () => cleanup(null);
+      // Safety timeout in case the request never resolves.
+      setTimeout(() => cleanup(null), 15000);
+
+      script.src = 'https://en.wikipedia.org/w/api.php'
+        + '?action=query&prop=pageimages&format=json'
+        + '&pithumbsize=200&redirects=1'
+        + '&titles=' + encodeURIComponent(chunk.join('|'))
+        + '&callback=' + callbackName;
+      document.head.appendChild(script);
+    }));
+
+    return Promise.all(requests).then((results) => {
+      const map = new Map();
+      for (const data of results) {
+        if (!data || !data.query || !data.query.pages) continue;
+
+        // Wikipedia normalizes titles ("Manny pacquiao" → "Manny Pacquiao")
+        // and resolves redirects; track both so we can map the API's chosen
+        // title back to the title we originally asked for.
+        const aliases = new Map();
+        for (const n of (data.query.normalized || [])) aliases.set(n.to, n.from);
+        for (const r of (data.query.redirects || [])) {
+          aliases.set(r.to, aliases.get(r.from) || r.from);
+        }
+
+        for (const page of Object.values(data.query.pages)) {
+          if (page && page.thumbnail && page.thumbnail.source) {
+            const original = aliases.get(page.title) || page.title;
+            map.set(original, page.thumbnail.source);
+          }
+        }
+      }
+      return map;
+    });
+  }
+
+  async function loadAvatars() {
+    const avatars = Array.from(document.querySelectorAll('.avatar[data-name]'));
+
+    // Build the set of Wikipedia titles we actually need to look up,
+    // and remember which avatars belong to each title.
+    const titleToAvatars = new Map();
+    for (const av of avatars) {
+      const displayName = av.dataset.name;
+      const title = wikipediaOverrides.hasOwnProperty(displayName)
+        ? wikipediaOverrides[displayName]
+        : displayName;
+      if (!title) continue;
+      if (!titleToAvatars.has(title)) titleToAvatars.set(title, []);
+      titleToAvatars.get(title).push(av);
+    }
+
+    const titles = Array.from(titleToAvatars.keys());
+    const thumbnails = await fetchThumbnailsJSONP(titles);
+
+    // Attach an <img> to each avatar that resolved a thumbnail URL.
+    for (const [title, list] of titleToAvatars) {
+      const src = thumbnails.get(title);
+      if (!src) continue;
+      for (const av of list) {
+        const img = document.createElement('img');
+        img.alt = av.dataset.name;
+        img.loading = 'lazy';
+        img.referrerPolicy = 'no-referrer';
+        img.addEventListener('load', () => {
+          img.classList.add('loaded');
+          av.classList.add('has-photo');
+        });
+        img.addEventListener('error', () => img.remove());
+        img.src = src;
+        av.appendChild(img);
+      }
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadAvatars);
+  } else {
+    loadAvatars();
+  }
+</script>
+
+</body>
+</html>
