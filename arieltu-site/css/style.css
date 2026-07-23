@@ -87,13 +87,16 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
 .site-nav a[aria-current="page"] { opacity: .45; }
 
 /* "Text" dropdown folder */
+.site-nav .nav-folder-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
 .nav-folder-toggle::after {
   content: "";
-  display: inline-block;
-  margin-left: 7px;
-  vertical-align: 2px;
   border: 4px solid transparent;
   border-top-color: currentColor;
+  transform: translateY(2px); /* caret sits optically centered on the text */
 }
 
 .nav-folder {
@@ -108,14 +111,17 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
   padding: 10px 22px;
   min-width: 190px;
   z-index: 40;
-  text-align: left;
+  text-align: center;
 }
 .nav-folder li { display: block; }
 .nav-folder a { display: block; padding: 6px 0; white-space: nowrap; }
 
-.has-folder.open .nav-folder,
-.has-folder:hover .nav-folder,
-.has-folder:focus-within .nav-folder { display: block; }
+.has-folder.open .nav-folder { display: block; }
+/* Hover-open only on devices that actually hover (prevents sticky
+   touch-hover), and never as a permanent state: mouseleave clears it. */
+@media (hover: hover) {
+  .has-folder:hover .nav-folder { display: block; }
+}
 
 /* Social icons */
 .social-row {
@@ -238,6 +244,39 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
   border: 0;
 }
 .fb-embed { aspect-ratio: auto; height: 430px; }
+
+/* Lite YouTube facade: thumbnail only until the visitor clicks play,
+   so pages with many videos load instantly. */
+.yt-facade {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  padding: 0; border: 0;
+  background: #000;
+  cursor: pointer;
+}
+.yt-facade img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: .92;
+}
+.yt-facade .yt-btn {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 68px; height: 48px;
+  background: rgba(0,0,0,.72);
+  border-radius: 10px;
+  transition: background .15s ease;
+}
+.yt-facade .yt-btn::after {
+  content: "";
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-40%, -50%);
+  border-style: solid;
+  border-width: 11px 0 11px 19px;
+  border-color: transparent transparent transparent #fff;
+}
+.yt-facade:hover .yt-btn,
+.yt-facade:focus-visible .yt-btn { background: #f00; }
 
 /* Episode blocks (TaiwaNYC) */
 .episode { margin: 0 0 52px; }

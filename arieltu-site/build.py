@@ -69,6 +69,7 @@ def page(title, active, prefix, body, wide=False, extra_head=""):
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="Ariel Tu is a documentary filmmaker and a bilingual journalist.">
+<link rel="icon" href="{prefix}assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="{prefix}css/style.css">
 {extra_head}</head>
 <body>
@@ -101,9 +102,14 @@ def page(title, active, prefix, body, wide=False, extra_head=""):
 
 
 def yt(video_id):
-    return (f'<div class="video-embed"><iframe src="https://www.youtube.com/embed/{video_id}" '
-            f'title="YouTube video" loading="lazy" allowfullscreen '
-            f'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>')
+    # Lite embed: JS builds a thumbnail facade inside this div; the real
+    # YouTube iframe is only injected when the visitor clicks play.
+    # <noscript> fallback keeps videos working without JS.
+    return (f'<div class="video-embed" data-yt="{video_id}">'
+            f'<noscript><iframe src="https://www.youtube-nocookie.com/embed/{video_id}" '
+            f'title="YouTube video" allowfullscreen '
+            f'allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture">'
+            f'</iframe></noscript></div>')
 
 
 def fb(video_url, height=430):
