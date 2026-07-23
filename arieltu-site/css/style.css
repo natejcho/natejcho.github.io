@@ -1,0 +1,294 @@
+/* ============================================================
+   arieltu.com — rebuilt static site
+   Look & feel modeled on the original Squarespace (Brine-family)
+   template: white ground, light-weight geometric sans, generous
+   whitespace, centered single content column.
+   ============================================================ */
+
+:root {
+  --ink: #333333;          /* body text */
+  --ink-strong: #111111;   /* headings / site title */
+  --ink-soft: #777777;     /* meta, captions */
+  --line: #e6e6e6;         /* hairline rules */
+  --link: #333333;         /* links are quiet, underline on hover */
+  --accent: #1a1a1a;
+  --bg: #ffffff;
+  --max-content: 780px;
+  --max-wide: 1100px;
+  --font-stack: "proxima-nova", "Proxima Nova", "Helvetica Neue",
+                Helvetica, Arial, "PingFang TC", "Microsoft JhengHei",
+                sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-stack);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--link); text-decoration: none; transition: opacity .15s ease; }
+a:hover { opacity: .6; }
+a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
+
+/* ---------------- Header ---------------- */
+
+.site-header {
+  padding: 34px 5vw 26px;
+  text-align: center;
+}
+
+.site-title {
+  margin: 0 0 18px;
+  font-size: 34px;
+  font-weight: 400;
+  letter-spacing: .16em;
+  text-transform: none;
+  color: var(--ink-strong);
+}
+.site-title a { color: inherit; }
+
+/* Primary nav */
+.site-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 26px;
+}
+
+.site-nav li { position: relative; }
+
+.site-nav a,
+.site-nav .nav-folder-toggle {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: .1em;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  padding: 4px 0;
+  font-family: inherit;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.site-nav a[aria-current="page"] { opacity: .45; }
+
+/* "Text" dropdown folder */
+.nav-folder-toggle::after {
+  content: "";
+  display: inline-block;
+  margin-left: 7px;
+  vertical-align: 2px;
+  border: 4px solid transparent;
+  border-top-color: currentColor;
+}
+
+.nav-folder {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: 0 8px 22px rgba(0,0,0,.07);
+  padding: 10px 22px;
+  min-width: 190px;
+  z-index: 40;
+  text-align: left;
+}
+.nav-folder li { display: block; }
+.nav-folder a { display: block; padding: 6px 0; white-space: nowrap; }
+
+.has-folder.open .nav-folder,
+.has-folder:hover .nav-folder,
+.has-folder:focus-within .nav-folder { display: block; }
+
+/* Social icons */
+.social-row {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin: 22px 0 0;
+}
+.social-row a {
+  width: 20px; height: 20px;
+  color: var(--ink);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.social-row svg { width: 18px; height: 18px; fill: currentColor; }
+
+/* Mobile menu */
+.menu-toggle {
+  display: none;
+  margin: 0 auto;
+  background: none;
+  border: 0;
+  font-family: inherit;
+  font-size: 13px;
+  letter-spacing: .12em;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 8px 12px;
+}
+.menu-toggle .bars { display: inline-block; margin-right: 8px; }
+.menu-toggle .bars span {
+  display: block; width: 18px; height: 2px;
+  background: var(--ink); margin: 3px 0;
+}
+
+@media (max-width: 800px) {
+  .site-header { padding-top: 24px; }
+  .site-title { font-size: 26px; margin-bottom: 8px; }
+  .menu-toggle { display: block; }
+  .site-nav { display: none; }
+  .site-nav.open { display: block; }
+  .site-nav ul { flex-direction: column; gap: 0; padding: 10px 0; }
+  .site-nav li { text-align: center; }
+  .site-nav a, .site-nav .nav-folder-toggle { padding: 9px 0; font-size: 14px; }
+  .nav-folder {
+    position: static; transform: none; border: 0; box-shadow: none;
+    padding: 0 0 6px; text-align: center;
+  }
+  .nav-folder a { font-size: 13px; color: var(--ink-soft); }
+}
+
+/* ---------------- Main content ---------------- */
+
+.page {
+  max-width: var(--max-content);
+  margin: 0 auto;
+  padding: 34px 24px 70px;
+}
+.page--wide { max-width: var(--max-wide); }
+
+.page h2 {
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: .06em;
+  color: var(--ink-strong);
+  margin: 46px 0 18px;
+}
+.page h3 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: var(--ink-strong);
+  margin: 40px 0 12px;
+  line-height: 1.5;
+}
+.page p { margin: 0 0 26px; }
+
+.page hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 44px auto;
+  width: 100%;
+}
+
+/* About page */
+.about-portrait { margin: 6px auto 38px; }
+.about-portrait img { margin: 0 auto; }
+
+/* Honors list */
+.honors-list { list-style: none; padding: 0; margin: 0 0 10px; }
+.honors-list li { margin: 0 0 20px; }
+
+/* Work entries (Documentaries etc.) */
+.work-entry { margin: 0 0 56px; }
+.work-entry .work-title {
+  font-size: 17px;
+  font-weight: 400;
+  margin: 0 0 14px;
+  line-height: 1.7;
+}
+.work-entry .work-title a { font-weight: 600; }
+.work-entry .work-note {
+  font-weight: 600;
+  font-size: 15px;
+  margin: 14px 0 0;
+}
+.work-entry .work-link { font-size: 14px; color: var(--ink-soft); word-break: break-all; }
+.work-entry figure { margin: 16px 0 0; }
+
+/* Video embeds */
+.video-embed {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 0 0 42px;
+  background: #f2f2f2;
+}
+.video-embed iframe {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  border: 0;
+}
+.fb-embed { aspect-ratio: auto; height: 430px; }
+
+/* Episode blocks (TaiwaNYC) */
+.episode { margin: 0 0 52px; }
+.episode .ep-title { font-size: 16px; font-weight: 400; margin: 0 0 14px; line-height: 1.7; }
+.episode .ep-title a { font-weight: 600; }
+
+/* Article link lists (AP / Law&Crime / Chinese) */
+.article-list { list-style: none; padding: 0; margin: 0; }
+.article-list li { margin: 0 0 22px; line-height: 1.65; }
+.article-list a { font-weight: 600; }
+.article-list--em a { font-style: italic; }
+.pub-heading { margin-top: 50px; }
+.pub-heading:first-child { margin-top: 0; }
+
+/* Projects */
+.project { margin: 0 0 64px; }
+.project figure { margin: 0 0 22px; }
+.project .read-link {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  border: 1px solid var(--ink);
+  padding: 12px 26px;
+  margin-top: 4px;
+}
+.project .read-link:hover { opacity: 1; background: var(--ink); color: #fff; }
+
+/* Photos */
+.photo-section { margin: 0 0 30px; }
+.photo-caption {
+  font-weight: 600;
+  color: var(--ink-strong);
+  margin: 42px 0 18px;
+  line-height: 1.6;
+}
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 14px;
+}
+.photo-grid figure { margin: 0; }
+@media (max-width: 640px) { .photo-grid { grid-template-columns: 1fr; } }
+
+/* Placeholder styling note: placeholders are SVG files in /assets */
+
+/* ---------------- Footer ---------------- */
+
+.site-footer {
+  border-top: 1px solid transparent;
+  padding: 30px 5vw 56px;
+  text-align: center;
+}
