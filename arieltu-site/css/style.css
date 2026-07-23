@@ -57,8 +57,10 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
 }
 .site-title a { color: inherit; }
 
-/* Primary nav */
-.site-nav ul {
+/* Primary nav — note the child combinator: these rules must apply ONLY to
+   the top-level list, never to the nested .nav-folder dropdown, whose
+   display:none this selector was previously overriding. */
+.site-nav > ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -100,6 +102,8 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
 }
 
 .nav-folder {
+  list-style: none;
+  margin: 0;
   display: none;
   position: absolute;
   top: 100%;
@@ -162,7 +166,7 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
   .menu-toggle { display: block; }
   .site-nav { display: none; }
   .site-nav.open { display: block; }
-  .site-nav ul { flex-direction: column; gap: 0; padding: 10px 0; }
+  .site-nav > ul { flex-direction: column; gap: 0; padding: 10px 0; }
   .site-nav li { text-align: center; }
   .site-nav a, .site-nav .nav-folder-toggle { padding: 9px 0; font-size: 14px; }
   .nav-folder {
