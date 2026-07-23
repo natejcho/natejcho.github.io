@@ -72,9 +72,10 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
 
 .site-nav ul { list-style: none; margin: 0; padding: 0; }
 
-/* Tiered rhythm modeled on the original: primary a touch larger and
-   bold, secondary slightly smaller, folder subitems smaller still. */
-.nav-group { margin: 0 0 18px; }
+/* Tiered nav modeled on the original: bold, larger primary group; a
+   clear gap; then noticeably smaller secondary items; folder subitems
+   smaller still and indented. */
+.site-nav ul.nav-group { margin: 0 0 40px; }
 .nav-group > li { margin: 0 0 6px; }
 
 .site-nav a,
@@ -86,13 +87,13 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
   cursor: pointer;
   display: inline-block;
   text-align: left;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.45;
 }
 
-/* Primary group: bold. */
+/* Primary group: bold and larger. */
 .nav-primary a {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 600;
   letter-spacing: .01em;
   color: var(--ink-strong);
@@ -112,10 +113,10 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
    indented, tighter (no extra gap under "Text"). */
 .nav-folder {
   display: none;
-  margin: 3px 0 8px 12px;
+  margin: 4px 0 10px 14px;
 }
-.nav-folder li { margin: 0 0 2px; }
-.nav-folder a { font-size: 13.5px; color: var(--ink); }
+.nav-folder li { margin: 0 0 3px; }
+.nav-folder a { font-size: 13px; color: var(--ink); }
 
 .has-folder.open .nav-folder { display: block; }
 .has-folder.open > .nav-folder-toggle { color: var(--ink-muted); }
@@ -296,6 +297,8 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
 }
 .fb-facade:hover .play-btn,
 .fb-facade:focus-visible .play-btn { background: #1877f2; }
+.fb-facade.loading { cursor: progress; }
+.fb-facade.loading .play-btn { opacity: .5; }
 
 /* Episode blocks (TaiwaNYC) */
 .episode { margin: 0 0 52px; }
@@ -369,13 +372,13 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
   .menu-toggle { display: block; }
   .site-nav { display: none; }
   .site-nav.open { display: block; padding: 10px 0 4px; }
-  .nav-group { margin: 0 0 14px; }
+  .site-nav ul.nav-group { margin: 0 0 14px; }
   .nav-group > li { margin: 0; }
   .site-nav li { text-align: center; }
-  .nav-primary a { font-size: 17px; }
-  .site-nav a, .site-nav .nav-folder-toggle { padding: 8px 0; font-size: 15px; }
+  .nav-primary a { font-size: 16px; }
+  .site-nav a, .site-nav .nav-folder-toggle { padding: 8px 0; font-size: 14px; }
   .nav-folder { margin: 0 0 4px; }
-  .nav-folder a { font-size: 14px; }
+  .nav-folder a { font-size: 13px; }
   .site-header .social-row { justify-content: center; margin-top: 4px; }
   .page, .site-footer { margin-left: 0; }
   .page { padding: 30px 24px 60px; }
