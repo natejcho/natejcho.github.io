@@ -1,4 +1,5 @@
-// Mobile menu toggle, "Text" folder dropdown, and lite YouTube embeds.
+// Mobile menu toggle, "Text" inline folder, lite YouTube embeds, and
+// Facebook poster facades.
 (function () {
   var toggle = document.querySelector('.menu-toggle');
   var nav = document.querySelector('.site-nav');
@@ -9,35 +10,26 @@
     });
   }
 
-  function closeFolder(li) {
-    li.classList.remove('open');
-    var b = li.querySelector('.nav-folder-toggle');
-    if (b) b.setAttribute('aria-expanded', 'false');
-  }
-
+  // "Text" folder expands inline within the sidebar (accordion). Pages
+  // inside the folder render it already open server-side.
   document.querySelectorAll('.has-folder').forEach(function (li) {
     var btn = li.querySelector('.nav-folder-toggle');
     if (btn) {
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
+      btn.addEventListener('click', function () {
         var open = li.classList.toggle('open');
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
     }
-    // Never leave the panel latched open on desktop: leaving the item closes it.
-    li.addEventListener('mouseleave', function () { closeFolder(li); });
   });
 
-  document.addEventListener('click', function (e) {
-    if (!e.target.closest('.has-folder')) {
-      document.querySelectorAll('.has-folder.open').forEach(closeFolder);
-    }
-  });
-
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-      document.querySelectorAll('.has-folder.open').forEach(closeFolder);
-    }
+  // ---- Facebook poster facade ----
+  // The FB video plugin often renders without a thumbnail for logged-out
+  // visitors, so a poster + play button covers the video area of the
+  // embed; a click reveals the real Facebook player underneath.
+  document.querySelectorAll('.fb-facade').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      btn.remove();
+    });
   });
 
   // ---- Lite YouTube ----

@@ -16,10 +16,15 @@ SOCIAL = """<div class="social-row">
   </a>
 </div>"""
 
-NAV_ITEMS = [
+# The sidebar shows two visually distinct groups, matching the original
+# Squarespace layout: primary pages (bold) and work pages (lighter).
+NAV_PRIMARY = [
     ("About", "index.html", "about"),
     ("Honors", "honors/", "honors"),
     ("Documentaries", "documentaries/", "documentaries"),
+]
+
+NAV_SECONDARY = [
     ("Video Journalism", "video-journalism/", "video-journalism"),
     ("Video Series: TaiwaNyc", "taiwanyc/", "taiwanyc"),
     ("TEXT_FOLDER", None, None),
@@ -35,25 +40,33 @@ TEXT_SUBNAV = [
 ]
 
 
-def nav_html(prefix, active):
+def nav_group(nav_items, prefix, active, cls):
     items = []
-    for label, href, key in NAV_ITEMS:
+    for label, href, key in nav_items:
         if label == "TEXT_FOLDER":
+            # The folder opens inline inside the sidebar (accordion), and is
+            # rendered already-open on its own subpages.
+            is_open = any(k == active for _, _, k in TEXT_SUBNAV)
             sub = "\n".join(
                 f'          <li><a href="{prefix}{h}"{aria(active, k)}>{l}</a></li>'
                 for l, h, k in TEXT_SUBNAV
             )
             items.append(
-                '      <li class="has-folder">\n'
-                '        <button class="nav-folder-toggle" aria-expanded="false" '
-                'aria-haspopup="true">Text</button>\n'
+                f'      <li class="has-folder{" open" if is_open else ""}">\n'
+                f'        <button class="nav-folder-toggle" aria-expanded='
+                f'"{"true" if is_open else "false"}">Text</button>\n'
                 '        <ul class="nav-folder">\n' + sub + "\n        </ul>\n      </li>"
             )
         else:
             # Root index needs prefix-less handling for "About"
             target = prefix + href if href != "index.html" else (prefix + "index.html")
             items.append(f'      <li><a href="{target}"{aria(active, key)}>{label}</a></li>')
-    return "\n".join(items)
+    return f'    <ul class="nav-group {cls}">\n' + "\n".join(items) + "\n    </ul>"
+
+
+def nav_html(prefix, active):
+    return (nav_group(NAV_PRIMARY, prefix, active, "nav-primary") + "\n" +
+            nav_group(NAV_SECONDARY, prefix, active, "nav-secondary"))
 
 
 def aria(active, key):
@@ -70,6 +83,9 @@ def page(title, active, prefix, body, wide=False, extra_head=""):
 <title>{title}</title>
 <meta name="description" content="Ariel Tu is a documentary filmmaker and a bilingual journalist.">
 <link rel="icon" href="{prefix}assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap">
 <link rel="stylesheet" href="{prefix}css/style.css">
 {extra_head}</head>
 <body>
@@ -80,9 +96,7 @@ def page(title, active, prefix, body, wide=False, extra_head=""):
     <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>Menu
   </button>
   <nav class="site-nav" id="site-nav" aria-label="Main">
-    <ul>
 {nav_html(prefix, active)}
-    </ul>
   </nav>
   {SOCIAL}
 </header>
@@ -112,13 +126,23 @@ def yt(video_id):
             f'</iframe></noscript></div>')
 
 
-def fb(video_url, height=430):
+def fb(video_url, poster=None, height=430):
+    # show_text=true keeps the post description / hashtags / like counts
+    # visible. Facebook's plugin often refuses to render a video thumbnail
+    # for logged-out visitors, so when a poster is given we lay our own
+    # thumbnail + play button over just the video area of the embed; a
+    # click reveals the Facebook player underneath (js/main.js).
     from urllib.parse import quote
     src = ("https://www.facebook.com/plugins/video.php?height=314&href="
            + quote(video_url, safe="") + "&show_text=true&width=560")
+    facade = ""
+    if poster:
+        facade = (f'<button class="fb-facade" aria-label="Play video">'
+                  f'<img src="../assets/{poster}.svg" alt="" loading="lazy">'
+                  f'<span class="play-btn" aria-hidden="true"></span></button>')
     return (f'<div class="video-embed fb-embed" style="height:{height}px">'
             f'<iframe src="{src}" title="Facebook video" loading="lazy" allowfullscreen '
-            f'scrolling="no" allow="encrypted-media"></iframe></div>')
+            f'scrolling="no" allow="encrypted-media"></iframe>{facade}</div>')
 
 
 def ph(name, alt):
@@ -215,45 +239,45 @@ taiwanyc_body = f"""  <h2>Season 1</h2>
 
   <div class="episode">
     <p class="ep-title">EP1: <a href="http://bit.ly/taiwanyc-9m88" target="_blank" rel="noopener">9m88 ─ 歌手、音樂人 Singer Song Writer</a></p>
-    {fb("https://www.facebook.com/Crossing.cw/videos/950250001977527/")}
+    {fb("https://www.facebook.com/Crossing.cw/videos/950250001977527/", "fb-taiwanyc-ep1")}
   </div>
 
   <div class="episode">
     <p class="ep-title">EP2: <a href="http://bit.ly/taiwanyc-mitchlin" target="_blank" rel="noopener">林明學 Mitch Lin ─ 配樂作曲家 Film Score Composer</a></p>
-    {fb("https://www.facebook.com/Crossing.cw/videos/704495246736831/")}
+    {fb("https://www.facebook.com/Crossing.cw/videos/704495246736831/", "fb-taiwanyc-ep2")}
   </div>
 
   <div class="episode">
     <p class="ep-title">EP3: <a href="http://bit.ly/taiwanyc-mia" target="_blank" rel="noopener">Mia ─ Taiwanese Waves主辦人、經紀人 Taiwanese Waves Founder &amp; Music Agent</a></p>
-    {fb("https://www.facebook.com/Crossing.cw/videos/508582750011452/")}
+    {fb("https://www.facebook.com/Crossing.cw/videos/508582750011452/", "fb-taiwanyc-ep3")}
   </div>
 
   <div class="episode">
     <p class="ep-title">EP4: <a href="http://bit.ly/taiwanyc-seaformosa" target="_blank" rel="noopener">海味鮮台派 Sea Formosa ─ 返鄉投票影像企劃 Voting Video Project</a></p>
-    {fb("https://www.facebook.com/Crossing.cw/videos/2618864651566880/")}
+    {fb("https://www.facebook.com/Crossing.cw/videos/2618864651566880/", "fb-taiwanyc-ep4")}
   </div>
 
   <div class="episode">
     <p class="ep-title">EP5 &amp; 6: <a href="https://www.facebook.com/watch/?v=2539421076306380" target="_blank" rel="noopener">黃再添 Patrick Huang ─ 布魯克林藝站創辦人 Founder of Brooklyn Artists Studio</a></p>
-    {fb("https://www.facebook.com/Crossing.cw/videos/2539421076306380/")}
-    {fb("https://www.facebook.com/Crossing.cw/videos/2730619417192517/")}
+    {fb("https://www.facebook.com/Crossing.cw/videos/2539421076306380/", "fb-taiwanyc-ep5")}
+    {fb("https://www.facebook.com/Crossing.cw/videos/2730619417192517/", "fb-taiwanyc-ep6")}
   </div>
 
   <div class="episode">
     <p class="ep-title"><a href="https://www.facebook.com/Crossing.cw/videos/358580865580597" target="_blank" rel="noopener">EP 7: 886 ─ 紐約台菜餐廳 Taiwanese Restaurant in NY</a></p>
-    {fb("https://www.facebook.com/Crossing.cw/videos/358580865580597/")}
+    {fb("https://www.facebook.com/Crossing.cw/videos/358580865580597/", "fb-taiwanyc-ep7")}
   </div>
 
   <div class="episode">
     <p class="ep-title"><a href="https://fb.watch/ln33siT9f3/" target="_blank" rel="noopener">EP 8: 系列回顧 Season Finale</a></p>
-    {fb("https://www.facebook.com/Crossing.cw/videos/4414730291941938/")}
+    {fb("https://www.facebook.com/Crossing.cw/videos/4414730291941938/", "fb-taiwanyc-ep8")}
   </div>
 
   <h2>Season 2</h2>
 
   <div class="episode">
     <p class="ep-title"><a href="https://www.facebook.com/Crossing.cw/videos/2519584064988033" target="_blank" rel="noopener">EP 1: Isabelle Chiang 菜鳥的職涯筆記 — 職涯教練 Career Coach</a></p>
-    {fb("https://www.facebook.com/Crossing.cw/videos/2519584064988033/")}
+    {fb("https://www.facebook.com/Crossing.cw/videos/2519584064988033/", "fb-taiwanyc-s2ep1")}
   </div>
 """
 
@@ -399,7 +423,7 @@ chinese_body = f"""  <h3 class="pub-heading">報導者：</h3>
     <li><a href="https://www.twreporter.org/a/white-champak-vender" target="_blank" rel="noopener">你買的玉蘭花是這樣來的──撐起數百弱勢家庭的玉蘭花產業</a></li>
   </ul>
 
-  {fb("https://www.facebook.com/twreporter/videos/3137423189888156/", 476)}
+  {fb("https://www.facebook.com/twreporter/videos/3137423189888156/", "fb-twreporter", 476)}
 
   <h3 class="pub-heading">換日線：</h3>
   <ul class="article-list">
