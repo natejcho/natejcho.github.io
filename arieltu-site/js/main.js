@@ -37,10 +37,23 @@
 
   // The plugin also often renders without a thumbnail for logged-out
   // visitors, so a poster + play button covers the video area of the
-  // embed; a click reveals the real Facebook player underneath.
+  // embed. One click starts playback: the iframe reloads with
+  // autoplay=true (the click gesture is delegated via allow="autoplay"),
+  // and the poster stays up until the player has reloaded so there is
+  // no blank flash in between.
   document.querySelectorAll('.fb-facade').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      btn.remove();
+      var box = btn.closest('.fb-embed');
+      var iframe = box && box.querySelector('iframe');
+      var revealed = false;
+      function reveal() {
+        if (!revealed) { revealed = true; btn.remove(); }
+      }
+      if (!iframe) { reveal(); return; }
+      btn.classList.add('loading');
+      iframe.addEventListener('load', reveal, { once: true });
+      setTimeout(reveal, 3500); // fallback if load never fires
+      iframe.src += (iframe.src.indexOf('?') === -1 ? '?' : '&') + 'autoplay=true';
     });
   });
 

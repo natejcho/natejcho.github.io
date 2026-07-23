@@ -144,10 +144,12 @@ def fb(video_url, poster=None, text_h=115):
                   f'<img src="../assets/{poster}.svg" alt="" loading="lazy">'
                   f'<span class="play-btn" aria-hidden="true"></span></button>')
     est_height = 704 * 9 // 16 + text_h  # content column ≈ 704px wide
+    # allow="autoplay" delegates the parent page's click gesture to the
+    # iframe so the poster-facade click can start playback directly.
     return (f'<div class="video-embed fb-embed" data-text-h="{text_h}" '
             f'style="height:{est_height}px">'
             f'<iframe src="{src}" title="Facebook video" loading="lazy" allowfullscreen '
-            f'scrolling="no" allow="encrypted-media"></iframe>{facade}</div>')
+            f'scrolling="no" allow="autoplay; encrypted-media"></iframe>{facade}</div>')
 
 
 def ph(name, alt):
