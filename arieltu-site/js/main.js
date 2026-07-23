@@ -22,8 +22,20 @@
     }
   });
 
-  // ---- Facebook poster facade ----
-  // The FB video plugin often renders without a thumbnail for logged-out
+  // ---- Facebook embeds ----
+  // The FB video plugin scales its video to the iframe's width (16:9)
+  // and puts the post text below it, so each embed's height must track
+  // its rendered width: video height + the text area (data-text-h).
+  function sizeFbEmbeds() {
+    document.querySelectorAll('.fb-embed').forEach(function (box) {
+      var textH = parseInt(box.getAttribute('data-text-h') || '115', 10);
+      box.style.height = Math.round(box.clientWidth * 9 / 16 + textH) + 'px';
+    });
+  }
+  sizeFbEmbeds();
+  window.addEventListener('resize', sizeFbEmbeds);
+
+  // The plugin also often renders without a thumbnail for logged-out
   // visitors, so a poster + play button covers the video area of the
   // embed; a click reveals the real Facebook player underneath.
   document.querySelectorAll('.fb-facade').forEach(function (btn) {
