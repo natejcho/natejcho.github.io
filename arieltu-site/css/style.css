@@ -59,9 +59,9 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
 }
 
 .site-title {
-  margin: 0 0 46px;
+  margin: 0 0 40px;
   font-family: var(--logo-stack);
-  font-size: 46px;
+  font-size: 40px;
   font-weight: 400;
   letter-spacing: .01em;
   line-height: 1;
@@ -72,24 +72,26 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
 
 .site-nav ul { list-style: none; margin: 0; padding: 0; }
 
-.nav-group { margin: 0 0 36px; }
-.nav-group > li { margin: 0 0 12px; }
+/* Both groups share one vertical rhythm; the groups differ by weight,
+   not size, and are separated by a modest extra gap. */
+.nav-group { margin: 0 0 22px; }
+.nav-group > li { margin: 0 0 6px; }
 
 .site-nav a,
 .site-nav .nav-folder-toggle {
   font-family: inherit;
   background: none;
   border: 0;
-  padding: 2px 0;
+  padding: 0;
   cursor: pointer;
   display: inline-block;
   text-align: left;
-  line-height: 1.5;
+  font-size: 18px;
+  line-height: 1.55;
 }
 
-/* Primary group: bolder and slightly bigger than the rest. */
+/* Primary group: bold. */
 .nav-primary a {
-  font-size: 19px;
   font-weight: 600;
   letter-spacing: .01em;
   color: var(--ink-strong);
@@ -97,21 +99,21 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
 
 .nav-secondary a,
 .nav-secondary .nav-folder-toggle {
-  font-size: 17px;
-  font-weight: 300;
-  color: var(--ink);
+  font-weight: 400;
+  color: #3a3a3a;
 }
 
 .site-nav a[aria-current="page"] { color: var(--ink-muted); }
 .site-nav a[aria-current="page"]:hover { opacity: 1; }
 
-/* "Text" folder — expands inline within the sidebar. */
+/* "Text" folder — expands inline within the sidebar: subitems slightly
+   smaller, indented, same rhythm (no extra gap under "Text"). */
 .nav-folder {
   display: none;
-  margin: 8px 0 4px 14px;
+  margin: 4px 0 8px 12px;
 }
-.nav-folder li { margin: 0 0 6px; }
-.nav-folder a { font-size: 15.5px; }
+.nav-folder li { margin: 0 0 5px; }
+.nav-folder a { font-size: 16px; color: var(--ink); }
 
 .has-folder.open .nav-folder { display: block; }
 .has-folder.open > .nav-folder-toggle { color: var(--ink-muted); }
@@ -263,13 +265,13 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
    player (no thumbnail) to logged-out visitors, so we cover just the
    video area of the embed with our own poster + play button. Clicking
    removes it, revealing the real Facebook player (with the post text,
-   likes etc. below it untouched). The plugin renders its video at
-   560×315 in the top-left corner of the iframe, which is what these
-   dimensions mirror. */
+   likes etc. below it untouched). The plugin scales its video to the
+   full iframe width (16:9), with the post text below; js/main.js sets
+   each .fb-embed's height to match (video + text area). */
 .fb-facade {
   position: absolute; top: 0; left: 0;
-  width: min(560px, 100%);
-  aspect-ratio: 560 / 315;
+  width: 100%;
+  aspect-ratio: 16 / 9;
   padding: 0; border: 0;
   background: #000;
   cursor: pointer;

@@ -126,12 +126,15 @@ def yt(video_id):
             f'</iframe></noscript></div>')
 
 
-def fb(video_url, poster=None, height=430):
+def fb(video_url, poster=None, text_h=115):
     # show_text=true keeps the post description / hashtags / like counts
-    # visible. Facebook's plugin often refuses to render a video thumbnail
-    # for logged-out visitors, so when a poster is given we lay our own
-    # thumbnail + play button over just the video area of the embed; a
-    # click reveals the Facebook player underneath (js/main.js).
+    # visible. The plugin scales its video to the iframe width (16:9) and
+    # renders ~text_h px of post text below it; js/main.js keeps the
+    # embed's height in sync with its rendered width (the inline height
+    # is only a pre-JS estimate). Facebook also often refuses to render a
+    # video thumbnail for logged-out visitors, so when a poster is given
+    # we lay our own thumbnail + play button over the video area; a click
+    # reveals the Facebook player underneath (js/main.js).
     from urllib.parse import quote
     src = ("https://www.facebook.com/plugins/video.php?height=314&href="
            + quote(video_url, safe="") + "&show_text=true&width=560")
@@ -140,7 +143,9 @@ def fb(video_url, poster=None, height=430):
         facade = (f'<button class="fb-facade" aria-label="Play video">'
                   f'<img src="../assets/{poster}.svg" alt="" loading="lazy">'
                   f'<span class="play-btn" aria-hidden="true"></span></button>')
-    return (f'<div class="video-embed fb-embed" style="height:{height}px">'
+    est_height = 704 * 9 // 16 + text_h  # content column ≈ 704px wide
+    return (f'<div class="video-embed fb-embed" data-text-h="{text_h}" '
+            f'style="height:{est_height}px">'
             f'<iframe src="{src}" title="Facebook video" loading="lazy" allowfullscreen '
             f'scrolling="no" allow="encrypted-media"></iframe>{facade}</div>')
 
@@ -423,7 +428,7 @@ chinese_body = f"""  <h3 class="pub-heading">報導者：</h3>
     <li><a href="https://www.twreporter.org/a/white-champak-vender" target="_blank" rel="noopener">你買的玉蘭花是這樣來的──撐起數百弱勢家庭的玉蘭花產業</a></li>
   </ul>
 
-  {fb("https://www.facebook.com/twreporter/videos/3137423189888156/", "fb-twreporter", 476)}
+  {fb("https://www.facebook.com/twreporter/videos/3137423189888156/", "fb-twreporter", 161)}
 
   <h3 class="pub-heading">換日線：</h3>
   <ul class="article-list">
