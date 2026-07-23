@@ -15,7 +15,7 @@
   --link: #333333;         /* links are quiet, underline on hover */
   --accent: #1a1a1a;
   --bg: #ffffff;
-  --sidebar-w: 320px;
+  --sidebar-w: 260px;
   --max-content: 800px;
   --max-wide: 1180px;
   --font-stack: "proxima-nova", "Proxima Nova", "Helvetica Neue",
@@ -34,7 +34,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font-stack);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 300;
   line-height: 1.8;
 }
@@ -51,7 +51,7 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
   position: fixed;
   top: 0; left: 0; bottom: 0;
   width: var(--sidebar-w);
-  padding: 52px 30px 40px 56px;
+  padding: 48px 24px 40px 48px;
   text-align: left;
   overflow-y: auto;
   background: var(--bg);
@@ -59,11 +59,11 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
 }
 
 .site-title {
-  margin: 0 0 40px;
+  margin: 0 0 34px;
   font-family: var(--logo-stack);
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 400;
-  letter-spacing: .01em;
+  letter-spacing: .02em;
   line-height: 1;
   text-transform: uppercase;
   color: var(--ink-strong);
@@ -72,9 +72,9 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
 
 .site-nav ul { list-style: none; margin: 0; padding: 0; }
 
-/* Both groups share one vertical rhythm; the groups differ by weight,
-   not size, and are separated by a modest extra gap. */
-.nav-group { margin: 0 0 22px; }
+/* Tiered rhythm modeled on the original: primary a touch larger and
+   bold, secondary slightly smaller, folder subitems smaller still. */
+.nav-group { margin: 0 0 18px; }
 .nav-group > li { margin: 0 0 6px; }
 
 .site-nav a,
@@ -86,17 +86,19 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
   cursor: pointer;
   display: inline-block;
   text-align: left;
-  font-size: 18px;
-  line-height: 1.55;
+  font-size: 15px;
+  line-height: 1.45;
 }
 
 /* Primary group: bold. */
 .nav-primary a {
+  font-size: 16px;
   font-weight: 600;
   letter-spacing: .01em;
   color: var(--ink-strong);
 }
 
+.nav-secondary > li { margin: 0 0 4px; }
 .nav-secondary a,
 .nav-secondary .nav-folder-toggle {
   font-weight: 400;
@@ -106,14 +108,14 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
 .site-nav a[aria-current="page"] { color: var(--ink-muted); }
 .site-nav a[aria-current="page"]:hover { opacity: 1; }
 
-/* "Text" folder — expands inline within the sidebar: subitems slightly
-   smaller, indented, same rhythm (no extra gap under "Text"). */
+/* "Text" folder — expands inline within the sidebar: subitems smaller,
+   indented, tighter (no extra gap under "Text"). */
 .nav-folder {
   display: none;
-  margin: 4px 0 8px 12px;
+  margin: 3px 0 8px 12px;
 }
-.nav-folder li { margin: 0 0 5px; }
-.nav-folder a { font-size: 16px; color: var(--ink); }
+.nav-folder li { margin: 0 0 2px; }
+.nav-folder a { font-size: 13.5px; color: var(--ink); }
 
 .has-folder.open .nav-folder { display: block; }
 .has-folder.open > .nav-folder-toggle { color: var(--ink-muted); }
@@ -156,12 +158,12 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
 .page {
   margin-left: var(--sidebar-w);
   max-width: var(--max-content);
-  padding: 56px 48px 80px;
+  padding: 48px 48px 80px;
 }
 .page--wide { max-width: var(--max-wide); }
 
 .page h2 {
-  font-size: 22px;
+  font-size: 19px;
   font-weight: 400;
   letter-spacing: .06em;
   color: var(--ink-strong);
@@ -169,14 +171,14 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
 }
 .page h2:first-child { margin-top: 0; }
 .page h3 {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   letter-spacing: .02em;
   color: var(--ink-strong);
   margin: 40px 0 12px;
   line-height: 1.5;
 }
-.page p { margin: 0 0 26px; }
+.page p { margin: 0 0 24px; }
 
 .page hr {
   border: 0;
@@ -185,8 +187,19 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
   width: 100%;
 }
 
-/* About page */
-.about-portrait { margin: 6px 0 38px; }
+/* About page: portrait beside the bio, like the original. */
+.about-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 10px 40px;
+  align-items: start;
+}
+.about-portrait { margin: 0; }
+.about-bio p { margin: 0 0 20px; }
+@media (max-width: 1080px) {
+  .about-layout { grid-template-columns: 1fr; }
+  .about-portrait { margin: 0 0 28px; }
+}
 
 /* Honors list */
 .honors-list { list-style: none; padding: 0; margin: 0 0 10px; }
@@ -195,7 +208,7 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
 /* Work entries (Documentaries etc.) */
 .work-entry { margin: 0 0 56px; }
 .work-entry .work-title {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 400;
   margin: 0 0 14px;
   line-height: 1.7;
@@ -286,7 +299,7 @@ a:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 2px; }
 
 /* Episode blocks (TaiwaNYC) */
 .episode { margin: 0 0 52px; }
-.episode .ep-title { font-size: 16px; font-weight: 400; margin: 0 0 14px; line-height: 1.7; }
+.episode .ep-title { font-size: 15px; font-weight: 400; margin: 0 0 14px; line-height: 1.7; }
 .episode .ep-title a { font-weight: 600; }
 
 /* Article link lists (AP / Law&Crime / Chinese) */
