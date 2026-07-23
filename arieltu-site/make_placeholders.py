@@ -46,6 +46,20 @@ PLACEHOLDERS = [
     ("photo-magnolia-2", 1200, 800, "玉蘭花產業 — photo 2"),
     ("photo-magnolia-3", 1200, 800, "玉蘭花產業 — photo 3"),
     ("photo-magnolia-4", 1200, 800, "玉蘭花產業 — photo 4"),
+    # Facebook video posters (TaiwaNYC + 中文作品). These cover the video
+    # area of the FB embeds, which render without a thumbnail for
+    # logged-out visitors. Replace with real frames grabbed from each
+    # video (16:9).
+    ("fb-taiwanyc-ep1", 1120, 630, "TaiwaNYC EP1: 9m88 — video still"),
+    ("fb-taiwanyc-ep2", 1120, 630, "TaiwaNYC EP2: Mitch Lin — video still"),
+    ("fb-taiwanyc-ep3", 1120, 630, "TaiwaNYC EP3: Mia — video still"),
+    ("fb-taiwanyc-ep4", 1120, 630, "TaiwaNYC EP4: Sea Formosa — video still"),
+    ("fb-taiwanyc-ep5", 1120, 630, "TaiwaNYC EP5: Patrick Huang — video still"),
+    ("fb-taiwanyc-ep6", 1120, 630, "TaiwaNYC EP6: Patrick Huang — video still"),
+    ("fb-taiwanyc-ep7", 1120, 630, "TaiwaNYC EP7: 886 — video still"),
+    ("fb-taiwanyc-ep8", 1120, 630, "TaiwaNYC EP8: Season Finale — video still"),
+    ("fb-taiwanyc-s2ep1", 1120, 630, "TaiwaNYC S2 EP1: Isabelle Chiang — video still"),
+    ("fb-twreporter", 1120, 630, "報導者 video — video still"),
 ]
 
 TPL = """<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}">

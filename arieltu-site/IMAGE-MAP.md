@@ -42,3 +42,29 @@ name in the left column (as `.jpg`/`.png`), then find-and-replace the
 Note: on the original Photos page, some heat-wave photos and rally photos
 were interleaved. I grouped them by story for placeholder purposes; once
 real images are in, we can reorder to match the original exactly.
+
+## Facebook video posters
+
+Facebook's embedded video player usually shows a blank/black player (no
+thumbnail) to visitors who aren't logged in, so the TaiwaNYC and 中文作品
+pages lay a local poster image with a play button over the video area of
+each embed; clicking it reveals the real Facebook player (post text and
+like counts below stay visible the whole time).
+
+To replace the placeholder posters: open each video below, screenshot a
+representative frame (16:9), save it into `/assets` under the name in the
+left column (as `.jpg`/`.png`), and swap the `.svg` extension in
+`build.py` / the HTML.
+
+| Placeholder file | Page | Facebook video |
+| --- | --- | --- |
+| fb-taiwanyc-ep1 | TaiwaNyc | https://www.facebook.com/Crossing.cw/videos/950250001977527/ |
+| fb-taiwanyc-ep2 | TaiwaNyc | https://www.facebook.com/Crossing.cw/videos/704495246736831/ |
+| fb-taiwanyc-ep3 | TaiwaNyc | https://www.facebook.com/Crossing.cw/videos/508582750011452/ |
+| fb-taiwanyc-ep4 | TaiwaNyc | https://www.facebook.com/Crossing.cw/videos/2618864651566880/ |
+| fb-taiwanyc-ep5 | TaiwaNyc | https://www.facebook.com/Crossing.cw/videos/2539421076306380/ |
+| fb-taiwanyc-ep6 | TaiwaNyc | https://www.facebook.com/Crossing.cw/videos/2730619417192517/ |
+| fb-taiwanyc-ep7 | TaiwaNyc | https://www.facebook.com/Crossing.cw/videos/358580865580597/ |
+| fb-taiwanyc-ep8 | TaiwaNyc | https://www.facebook.com/Crossing.cw/videos/4414730291941938/ |
+| fb-taiwanyc-s2ep1 | TaiwaNyc | https://www.facebook.com/Crossing.cw/videos/2519584064988033/ |
+| fb-twreporter | 中文作品 | https://www.facebook.com/twreporter/videos/3137423189888156/ |
