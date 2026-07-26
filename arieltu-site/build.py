@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Render all pages of the rebuilt arieltu.com static site."""
 import os
+from urllib.parse import quote
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -28,7 +29,6 @@ NAV_SECONDARY = [
     ("Video Journalism", "video-journalism/", "video-journalism"),
     ("Video Series: TaiwaNyc", "taiwanyc/", "taiwanyc"),
     ("TEXT_FOLDER", None, None),
-    ("Photos", "photos/", "photos"),
     ("中文作品", "104371213252/", "chinese"),
 ]
 
@@ -85,7 +85,7 @@ def page(title, active, prefix, body, wide=False, extra_head=""):
 <link rel="icon" href="{prefix}assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600;6..12,700&display=swap">
 <link rel="stylesheet" href="{prefix}css/style.css">
 {extra_head}</head>
 <body>
@@ -126,34 +126,20 @@ def yt(video_id):
             f'</iframe></noscript></div>')
 
 
-def fb(video_url, poster=None, text_h=115):
-    # show_text=true keeps the post description / hashtags / like counts
-    # visible. The plugin scales its video to the iframe width (16:9) and
-    # renders ~text_h px of post text below it; js/main.js keeps the
-    # embed's height in sync with its rendered width (the inline height
-    # is only a pre-JS estimate). Facebook also often refuses to render a
-    # video thumbnail for logged-out visitors, so when a poster is given
-    # we lay our own thumbnail + play button over the video area; a click
-    # reveals the Facebook player underneath (js/main.js).
-    from urllib.parse import quote
+def fb(video_url, height=429):
+    # Facebook's stock video-plugin embed (show_text=true keeps the post
+    # description / like counts visible below the video).
     src = ("https://www.facebook.com/plugins/video.php?height=314&href="
            + quote(video_url, safe="") + "&show_text=true&width=560")
-    facade = ""
-    if poster:
-        facade = (f'<button class="fb-facade" aria-label="Play video">'
-                  f'<img src="../assets/{poster}.svg" alt="" loading="lazy">'
-                  f'<span class="play-btn" aria-hidden="true"></span></button>')
-    est_height = 704 * 9 // 16 + text_h  # content column ≈ 704px wide
-    # allow="autoplay" delegates the parent page's click gesture to the
-    # iframe so the poster-facade click can start playback directly.
-    return (f'<div class="video-embed fb-embed" data-text-h="{text_h}" '
-            f'style="height:{est_height}px">'
-            f'<iframe src="{src}" title="Facebook video" loading="lazy" allowfullscreen '
-            f'scrolling="no" allow="autoplay; encrypted-media"></iframe>{facade}</div>')
+    return (f'<iframe class="fb-embed" src="{src}" width="560" height="{height}" '
+            f'title="Facebook video" loading="lazy" scrolling="no" allowfullscreen '
+            f'allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>')
 
 
-def ph(name, alt):
-    return f'assets/{name}.svg', alt
+def asset(filename):
+    # Real image filenames (matching the originals) contain spaces, "+"
+    # and CJK characters, so they must be percent-encoded in URLs.
+    return "../assets/" + quote(filename)
 
 
 # ----------------------------------------------------------------
@@ -162,7 +148,7 @@ def ph(name, alt):
 
 about_body = """  <div class="about-layout">
     <figure class="about-portrait">
-      <img src="assets/arieltu-portrait.svg" alt="Portrait of Ariel Tu" width="1000" height="1250">
+      <img src="assets/01_arieltu.webp" alt="Portrait of Ariel Tu" width="1000" height="1250">
     </figure>
     <div class="about-bio">
       <p>Ariel Tu is a documentary filmmaker and a bilingual journalist.</p>
@@ -203,40 +189,40 @@ honors_body = """  <ul class="honors-list">
   </ul>
 """
 
-docs_body = """  <article class="work-entry">
+docs_body = f"""  <article class="work-entry">
     <p class="work-title"><a href="https://www.hbo.com/unveiled-surviving-la-luz-del-mundo" target="_blank" rel="noopener">Unveiled: Surviving La Luz del Mundo</a> | HBO | Field Producer | 2022</p>
-    <p class="work-link"><a href="https://www.hbo.com/unveiled-surviving-la-luz-del-mundo" target="_blank" rel="noopener">https://www.hbo.com/unveiled-surviving-la-luz-del-mundo</a></p>
+    <figure><img src="{asset('02_unveiled.webp')}" alt="Still from Unveiled: Surviving La Luz del Mundo" width="1280" height="720"></figure>
     <p class="work-note">Nominated for an Emmy Award (Outstanding Crime and Justice Documentary)</p>
   </article>
 
   <article class="work-entry">
     <p class="work-title"><a href="https://youtu.be/DCe-ZZ-tfgg" target="_blank" rel="noopener">Invisible Costs of Taiwan&rsquo;s Chip Boom</a> | TaiwanPlus | Director &amp; Producer | 2026</p>
-    <figure><img src="../assets/doc-chip-boom.svg" alt="Still from Invisible Costs of Taiwan's Chip Boom" width="1280" height="720"></figure>
+    <figure><img src="{asset('03_invisible+costs+of+TW+chib+boom.webp')}" alt="Still from Invisible Costs of Taiwan's Chip Boom" width="1280" height="720"></figure>
   </article>
 
   <article class="work-entry">
     <p class="work-title"><a href="https://www.taiwanplus.com/shows/culture/superstitions" target="_blank" rel="noopener">Superstitions</a> | TaiwanPlus | Executive Producer | 2025</p>
-    <figure><img src="../assets/doc-superstitions.svg" alt="Still from Superstitions" width="1280" height="720"></figure>
+    <figure><img src="{asset('04_Superstitions.webp')}" alt="Still from Superstitions" width="1280" height="720"></figure>
   </article>
 
   <article class="work-entry">
     <p class="work-title"><a href="https://youtu.be/y7iSvwnvUww" target="_blank" rel="noopener">兩岸第一對：Ryan與Righ的同婚之路</a>｜Deutsche Welle 德國之聲 ｜Director ｜2025</p>
-    <figure><img src="../assets/doc-dw-ryan-righ.svg" alt="Still from 兩岸第一對：Ryan與Righ的同婚之路" width="1280" height="720"></figure>
+    <figure><img src="{asset('05_兩岸第一對：Ryan與Righ的同婚之路.mp4.00_00_37_04.Still001.webp')}" alt="Still from 兩岸第一對：Ryan與Righ的同婚之路" width="1280" height="720"></figure>
   </article>
 
   <article class="work-entry">
     <p class="work-title"><a href="https://tvfinternational.com/programme/29981/the-trials-of-kyle-rittenhouse?trailer=1" target="_blank" rel="noopener">The Trials of Kyle Rittenhouse</a> | Law&amp;Crime Network | Producer | 2024</p>
-    <figure><img src="../assets/doc-rittenhouse.svg" alt="Still from The Trials of Kyle Rittenhouse" width="1280" height="720"></figure>
+    <figure><img src="{asset('06_the+trials+of+kyle+rittenhouse.webp')}" alt="Still from The Trials of Kyle Rittenhouse" width="1280" height="720"></figure>
   </article>
 
   <article class="work-entry">
     <p class="work-title"><a href="https://www.hulu.com/series/cult-justice-f4cd29c6-5b11-40f6-a6f8-b99ca8e64b7f" target="_blank" rel="noopener">Cult Justice</a> | HULU | Producer | 2023</p>
-    <p class="work-link"><a href="https://lawandcrimeproductions.com/work/cult-justice/" target="_blank" rel="noopener">https://lawandcrimeproductions.com/work/cult-justice/</a></p>
+    <figure><img src="{asset('07_cultjustice.webp')}" alt="Still from Cult Justice" width="1280" height="720"></figure>
   </article>
 
   <article class="work-entry">
     <p class="work-title"><a href="https://www.aetv.com/shows/killer-cases" target="_blank" rel="noopener">Killer Cases</a> | A&amp;E | Producer | 2022-2023</p>
-    <p class="work-link"><a href="https://www.aetv.com/shows/killer-cases" target="_blank" rel="noopener">https://www.aetv.com/shows/killer-cases</a></p>
+    <figure><img src="{asset('08_killer+cases.webp')}" alt="Still from Killer Cases" width="1280" height="720"></figure>
   </article>
 """
 
@@ -249,45 +235,45 @@ taiwanyc_body = f"""  <h2>Season 1</h2>
 
   <div class="episode">
     <p class="ep-title">EP1: <a href="http://bit.ly/taiwanyc-9m88" target="_blank" rel="noopener">9m88 ─ 歌手、音樂人 Singer Song Writer</a></p>
-    {fb("https://www.facebook.com/Crossing.cw/videos/950250001977527/", "fb-taiwanyc-ep1")}
+    {fb("https://www.facebook.com/Crossing.cw/videos/950250001977527/")}
   </div>
 
   <div class="episode">
     <p class="ep-title">EP2: <a href="http://bit.ly/taiwanyc-mitchlin" target="_blank" rel="noopener">林明學 Mitch Lin ─ 配樂作曲家 Film Score Composer</a></p>
-    {fb("https://www.facebook.com/Crossing.cw/videos/704495246736831/", "fb-taiwanyc-ep2")}
+    {fb("https://www.facebook.com/Crossing.cw/videos/704495246736831/")}
   </div>
 
   <div class="episode">
     <p class="ep-title">EP3: <a href="http://bit.ly/taiwanyc-mia" target="_blank" rel="noopener">Mia ─ Taiwanese Waves主辦人、經紀人 Taiwanese Waves Founder &amp; Music Agent</a></p>
-    {fb("https://www.facebook.com/Crossing.cw/videos/508582750011452/", "fb-taiwanyc-ep3")}
+    {fb("https://www.facebook.com/Crossing.cw/videos/508582750011452/")}
   </div>
 
   <div class="episode">
     <p class="ep-title">EP4: <a href="http://bit.ly/taiwanyc-seaformosa" target="_blank" rel="noopener">海味鮮台派 Sea Formosa ─ 返鄉投票影像企劃 Voting Video Project</a></p>
-    {fb("https://www.facebook.com/Crossing.cw/videos/2618864651566880/", "fb-taiwanyc-ep4")}
+    {fb("https://www.facebook.com/Crossing.cw/videos/2618864651566880/")}
   </div>
 
   <div class="episode">
     <p class="ep-title">EP5 &amp; 6: <a href="https://www.facebook.com/watch/?v=2539421076306380" target="_blank" rel="noopener">黃再添 Patrick Huang ─ 布魯克林藝站創辦人 Founder of Brooklyn Artists Studio</a></p>
-    {fb("https://www.facebook.com/Crossing.cw/videos/2539421076306380/", "fb-taiwanyc-ep5")}
-    {fb("https://www.facebook.com/Crossing.cw/videos/2730619417192517/", "fb-taiwanyc-ep6")}
+    {fb("https://www.facebook.com/Crossing.cw/videos/2539421076306380/")}
+    {fb("https://www.facebook.com/Crossing.cw/videos/2730619417192517/")}
   </div>
 
   <div class="episode">
     <p class="ep-title"><a href="https://www.facebook.com/Crossing.cw/videos/358580865580597" target="_blank" rel="noopener">EP 7: 886 ─ 紐約台菜餐廳 Taiwanese Restaurant in NY</a></p>
-    {fb("https://www.facebook.com/Crossing.cw/videos/358580865580597/", "fb-taiwanyc-ep7")}
+    {fb("https://www.facebook.com/Crossing.cw/videos/358580865580597/")}
   </div>
 
   <div class="episode">
     <p class="ep-title"><a href="https://fb.watch/ln33siT9f3/" target="_blank" rel="noopener">EP 8: 系列回顧 Season Finale</a></p>
-    {fb("https://www.facebook.com/Crossing.cw/videos/4414730291941938/", "fb-taiwanyc-ep8")}
+    {fb("https://www.facebook.com/Crossing.cw/videos/4414730291941938/")}
   </div>
 
   <h2>Season 2</h2>
 
   <div class="episode">
     <p class="ep-title"><a href="https://www.facebook.com/Crossing.cw/videos/2519584064988033" target="_blank" rel="noopener">EP 1: Isabelle Chiang 菜鳥的職涯筆記 — 職涯教練 Career Coach</a></p>
-    {fb("https://www.facebook.com/Crossing.cw/videos/2519584064988033/", "fb-taiwanyc-s2ep1")}
+    {fb("https://www.facebook.com/Crossing.cw/videos/2519584064988033/")}
   </div>
 """
 
@@ -357,71 +343,34 @@ hp_body = """  <ul class="article-list">
   </ul>
 """
 
-projects_body = """  <article class="project">
-    <figure><img src="../assets/project-1.svg" alt="The culture of silence — lead image" width="1200" height="800"></figure>
-    <h3>The culture of silence:<br>Filipino women hesitate to say #MeToo when no one says me</h3>
-    <p>The #MeToo and #TimesUp movements have swept the U.S. in the last year, emboldening women to step forward to name their assailants and to demand justice for victims of sexual misconduct and violence. In the Philippines, more than 7,000 miles away, women and girls can only dream of finding similar relief in a country they describe as full of rapists, where survivors of sexual violence must remain in the shadows, afraid to speak up.</p>
-    <a class="read-link" href="https://uscstoryspace.com/2017-2018/yaolintu/capstone/index.html" target="_blank" rel="noopener">Read</a>
+projects_body = f"""  <article class="project">
+    <figure><img src="{asset('Multimedia_The culture of silence.webp')}" alt="The culture of silence — lead image" width="1200" height="800"></figure>
+    <div class="project-info">
+      <h3>The culture of silence:<br>Filipino women hesitate to say #MeToo when no one says me</h3>
+      <p>The #MeToo and #TimesUp movements have swept the U.S. in the last year, emboldening women to step forward to name their assailants and to demand justice for victims of sexual misconduct and violence. In the Philippines, more than 7,000 miles away, women and girls can only dream of finding similar relief in a country they describe as full of rapists, where survivors of sexual violence must remain in the shadows, afraid to speak up.</p>
+      <a class="read-link" href="https://uscstoryspace.com/2017-2018/yaolintu/capstone/index.html" target="_blank" rel="noopener">Read</a>
+    </div>
   </article>
 
   <article class="project">
-    <figure><img src="../assets/project-2.svg" alt="Overeducated and underemployed — lead image" width="1200" height="800"></figure>
-    <h3>Overeducated and underemployed:<br>Filipino migrants armed with degrees only find work as caregivers</h3>
-    <p>Once a university dean in the Philippines, Aleja Plaza never thought she would become a caregiver for the elderly. Since she came to Los Angeles from Mindanao in 2012, her daily routine has switched from approving courses and conducting research to changing diapers and spoon feeding senior citizens.</p>
-    <a class="read-link" href="https://uscstoryspace.com/2017-2018/yaolintu/Fall_Final/index.html" target="_blank" rel="noopener">Read</a>
+    <figure><img src="{asset('Multimedia_Overeducated and underemployed.webp')}" alt="Overeducated and underemployed — lead image" width="1200" height="800"></figure>
+    <div class="project-info">
+      <h3>Overeducated and underemployed:<br>Filipino migrants armed with degrees only find work as caregivers</h3>
+      <p>Once a university dean in the Philippines, Aleja Plaza never thought she would become a caregiver for the elderly. Since she came to Los Angeles from Mindanao in 2012, her daily routine has switched from approving courses and conducting research to changing diapers and spoon feeding senior citizens.</p>
+      <a class="read-link" href="https://uscstoryspace.com/2017-2018/yaolintu/Fall_Final/index.html" target="_blank" rel="noopener">Read</a>
+    </div>
   </article>
 
   <article class="project">
-    <figure><img src="../assets/project-3.svg" alt="Keeping their heads down — lead image" width="1200" height="800"></figure>
-    <h3>Keeping their heads down:<br>Many asians remain silent in the DACA debate</h3>
-    <p>Gabrielle Cabalza was 9 years old when she realized her family was not like everyone else&rsquo;s. One day after school, she walked into the dining room, where the air was dense with fear and sadness. She found her parents sobbing at the table because of a traffic ticket.</p>
-    <a class="read-link" href="http://archive.uscstoryspace.com/2017-2018/yaolintu/Fall_Midterm/midtermtemplate/" target="_blank" rel="noopener">READ</a>
+    <figure><img src="{asset('Multimedia_Keeping their heads down.webp')}" alt="Keeping their heads down — lead image" width="1200" height="800"></figure>
+    <div class="project-info">
+      <h3>Keeping their heads down:<br>Many asians remain silent in the DACA debate</h3>
+      <p>Gabrielle Cabalza was 9 years old when she realized her family was not like everyone else&rsquo;s. One day after school, she walked into the dining room, where the air was dense with fear and sadness. She found her parents sobbing at the table because of a traffic ticket.</p>
+      <a class="read-link" href="http://archive.uscstoryspace.com/2017-2018/yaolintu/Fall_Midterm/midtermtemplate/" target="_blank" rel="noopener">Read</a>
+    </div>
   </article>
 """
 
-
-def grid(*names_alts):
-    figs = "\n".join(
-        f'      <figure><img src="../assets/{n}.svg" alt="{a}" loading="lazy" width="1200" height="800"></figure>'
-        for n, a in names_alts)
-    return f'    <div class="photo-grid">\n{figs}\n    </div>'
-
-
-photos_body = f"""  <section class="photo-section">
-    <p class="photo-caption">Stop Asian Hate rally</p>
-{grid(("photo-rally-1", "Stop Asian Hate rally"), ("photo-rally-2", "Stop Asian Hate rally"), ("photo-rally-3", "Stop Asian Hate rally"))}
-  </section>
-
-  <section class="photo-section">
-    <p class="photo-caption">Southern California hit by record-breaking heat wave</p>
-{grid(("photo-heatwave-1", "Record-breaking heat wave"), ("photo-heatwave-2", "Record-breaking heat wave"), ("photo-heatwave-3", "Record-breaking heat wave"), ("photo-heatwave-4", "Record-breaking heat wave"), ("photo-heatwave-5", "Record-breaking heat wave"), ("photo-heatwave-6", "Record-breaking heat wave"))}
-  </section>
-
-  <section class="photo-section">
-    <p class="photo-caption">The culture of silence:<br>Filipino women hesitate to say #MeToo when no one says me</p>
-{grid(("photo-metoo-1", "The culture of silence"), ("photo-metoo-2", "The culture of silence"))}
-  </section>
-
-  <section class="photo-section">
-    <p class="photo-caption">Surviving Skid Row:<br>Women&rsquo;s stories of assault, fear, and finding friendship</p>
-{grid(("photo-skidrow-1", "Surviving Skid Row"), ("photo-skidrow-2", "Surviving Skid Row"), ("photo-skidrow-3", "Surviving Skid Row"))}
-  </section>
-
-  <section class="photo-section">
-    <p class="photo-caption">Overeducated and underemployed:<br>Filipino migrants armed with degrees only find work as caregivers</p>
-{grid(("photo-caregivers-1", "Overeducated and underemployed"),)}
-  </section>
-
-  <section class="photo-section">
-    <p class="photo-caption">Keeping their heads down: Many asians remain silent in the DACA debate</p>
-{grid(("photo-daca-1", "DACA"), ("photo-daca-2", "DACA"), ("photo-daca-3", "DACA"))}
-  </section>
-
-  <section class="photo-section">
-    <p class="photo-caption">你買的玉蘭花是這樣來的──<br>撐起數百弱勢家庭的玉蘭花產業</p>
-{grid(("photo-magnolia-1", "玉蘭花產業"), ("photo-magnolia-2", "玉蘭花產業"), ("photo-magnolia-3", "玉蘭花產業"), ("photo-magnolia-4", "玉蘭花產業"))}
-  </section>
-"""
 
 chinese_body = f"""  <h3 class="pub-heading">報導者：</h3>
   <ul class="article-list">
@@ -433,7 +382,7 @@ chinese_body = f"""  <h3 class="pub-heading">報導者：</h3>
     <li><a href="https://www.twreporter.org/a/white-champak-vender" target="_blank" rel="noopener">你買的玉蘭花是這樣來的──撐起數百弱勢家庭的玉蘭花產業</a></li>
   </ul>
 
-  {fb("https://www.facebook.com/twreporter/videos/3137423189888156/", "fb-twreporter", 161)}
+  {fb("https://www.facebook.com/twreporter/videos/3137423189888156/", 476)}
 
   <h3 class="pub-heading">換日線：</h3>
   <ul class="article-list">
@@ -469,8 +418,7 @@ PAGES = [
     ("associated-press/index.html", "Associated Press — Ariel Tu", "associated-press", "../", ap_body, False),
     ("law-crime/index.html", "Law & Crime — Ariel Tu", "law-crime", "../", lc_body, False),
     ("huffington-post/index.html", "Huffington Post — Ariel Tu", "huffington-post", "../", hp_body, False),
-    ("projects/index.html", "Multimedia Projects — Ariel Tu", "projects", "../", projects_body, False),
-    ("photos/index.html", "Photos — Ariel Tu", "photos", "../", photos_body, True),
+    ("projects/index.html", "Multimedia Projects — Ariel Tu", "projects", "../", projects_body, True),
     ("104371213252/index.html", "杜曜霖 — Ariel Tu", "chinese", "../", chinese_body, False),
 ]
 

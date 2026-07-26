@@ -1,5 +1,4 @@
-// Mobile menu toggle, "Text" inline folder, lite YouTube embeds, and
-// Facebook poster facades.
+// Mobile menu toggle, "Text" inline folder, and lite YouTube embeds.
 (function () {
   var toggle = document.querySelector('.menu-toggle');
   var nav = document.querySelector('.site-nav');
@@ -20,41 +19,6 @@
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
     }
-  });
-
-  // ---- Facebook embeds ----
-  // The FB video plugin scales its video to the iframe's width (16:9)
-  // and puts the post text below it, so each embed's height must track
-  // its rendered width: video height + the text area (data-text-h).
-  function sizeFbEmbeds() {
-    document.querySelectorAll('.fb-embed').forEach(function (box) {
-      var textH = parseInt(box.getAttribute('data-text-h') || '115', 10);
-      box.style.height = Math.round(box.clientWidth * 9 / 16 + textH) + 'px';
-    });
-  }
-  sizeFbEmbeds();
-  window.addEventListener('resize', sizeFbEmbeds);
-
-  // The plugin also often renders without a thumbnail for logged-out
-  // visitors, so a poster + play button covers the video area of the
-  // embed. One click starts playback: the iframe reloads with
-  // autoplay=true (the click gesture is delegated via allow="autoplay"),
-  // and the poster stays up until the player has reloaded so there is
-  // no blank flash in between.
-  document.querySelectorAll('.fb-facade').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var box = btn.closest('.fb-embed');
-      var iframe = box && box.querySelector('iframe');
-      var revealed = false;
-      function reveal() {
-        if (!revealed) { revealed = true; btn.remove(); }
-      }
-      if (!iframe) { reveal(); return; }
-      btn.classList.add('loading');
-      iframe.addEventListener('load', reveal, { once: true });
-      setTimeout(reveal, 3500); // fallback if load never fires
-      iframe.src += (iframe.src.indexOf('?') === -1 ? '?' : '&') + 'autoplay=true';
-    });
   });
 
   // ---- Lite YouTube ----

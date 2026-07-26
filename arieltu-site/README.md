@@ -16,13 +16,11 @@ associated-press/       Text > Associated Press
 law-crime/              Text > Law & Crime
 huffington-post/        Text > Huffington Post
 projects/               Text > Multimedia Projects
-photos/                 Photos
 104371213252/           中文作品 (URL kept identical to the original)
 css/style.css           All styling
-js/main.js              Mobile menu + Text dropdown
-assets/                 Placeholder images (see IMAGE-MAP.md)
+js/main.js              Mobile menu + Text dropdown + lite YouTube embeds
+assets/                 Images (see IMAGE-MAP.md for how to upload the real ones)
 build.py                Regenerates all HTML pages (optional; edit + rerun)
-make_placeholders.py    Regenerates placeholder SVGs (optional)
 ```
 
 Folder-per-page layout means the URLs match the current site exactly
@@ -58,7 +56,6 @@ some browsers block them on file:// URLs.)
 
 ## Before canceling Squarespace
 
-1. Download every image listed in `IMAGE-MAP.md` (the CDN URLs die with the
-   subscription).
-2. Drop them into `assets/` and swap the `.svg` references in the HTML.
-3. Verify the deployed site, then move DNS, then cancel.
+1. Upload your exported images into `assets/` (see `IMAGE-MAP.md` — the
+   filenames already match, so it's a drag-and-drop replace).
+2. Verify the deployed site, then move DNS, then cancel.
